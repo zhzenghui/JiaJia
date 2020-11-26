@@ -57,10 +57,7 @@
     if (response.statusCode == WeiboSDKResponseStatusCodeSuccess) {
         NSLog(@"%@", response.userInfo);
     }
-    
-    
 }
-
 
 - (void)didReceiveWeiboRequest:(WBBaseRequest *)request {
     
