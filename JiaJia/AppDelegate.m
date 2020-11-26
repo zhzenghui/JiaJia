@@ -45,15 +45,6 @@
     __weak id weakSelf = self;
     return [WeiboSDK handleOpenURL:url delegate:weakSelf];
 }
-//- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
-//    __weak id weakSelf = self;
-//    return [WeiboSDK handleOpenURL:url delegate:weakSelf];
-//}
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(nullable NSString *)sourceApplication annotation:(id)annotation  {
-    __weak id weakSelf = self;
-    return [WeiboSDK handleOpenURL:url delegate:weakSelf];
-
-}
 
 - (BOOL)application:(UIApplication *)application willContinueUserActivityWithType:(NSString *)userActivityType API_AVAILABLE(ios(8.0)) {
     return true;

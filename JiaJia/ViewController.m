@@ -18,10 +18,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [WeiboSDK checkUniversalLink:^(WBULCheckStep step, NSError *error) {
-//        NSLog(@"成功 000 %ld", (long)step);
-//
-//    }];
+
     self.view.backgroundColor = UIColor.whiteColor;
     CGRect r = self.view.frame;
 
@@ -29,8 +26,6 @@
     [self.view addSubview:b];
     b.frame = CGRectMake(0, 0, r.size.width, r.size.height);
     [b addTarget:self action:@selector(openButton) forControlEvents:UIControlEventTouchUpInside];
-    
-//    [self openWeibo];
 
 }
 
