@@ -30,7 +30,7 @@
     b.frame = CGRectMake(0, 0, r.size.width, r.size.height);
     [b addTarget:self action:@selector(openButton) forControlEvents:UIControlEventTouchUpInside];
     
-    [self openWeibo];
+//    [self openWeibo];
 
 }
 
@@ -47,7 +47,7 @@
 - (void)openWeibo {
     WBAuthorizeRequest *req = [WBAuthorizeRequest request];
     req.redirectURI = kRedirectURL;
-    req.scope = @"all";
+    [req setScope:@"all"];
     [req setUserInfo:@{@"sso":@"sendlogin", @"Other_Info_1": @123}];
     [WeiboSDK sendRequest:req completion:^(BOOL success) {
         NSLog(@"成功%i", success);
