@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		50E5605C0705D1391D3BAC11 /* Pods_JiaJia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC57CC46F46C25635F14F414 /* Pods_JiaJia.framework */; };
+		AE1B5546257012CB00D704A6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1B5545257012CB00D704A6 /* AppDelegate.m */; };
+		AE1B5549257012CB00D704A6 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1B5548257012CB00D704A6 /* SceneDelegate.m */; };
+		AE1B554C257012CB00D704A6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1B554B257012CB00D704A6 /* ViewController.m */; };
+		AE1B554F257012CB00D704A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE1B554D257012CB00D704A6 /* Main.storyboard */; };
+		AE1B5551257012CD00D704A6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE1B5550257012CD00D704A6 /* Assets.xcassets */; };
+		AE1B5554257012CD00D704A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE1B5552257012CD00D704A6 /* LaunchScreen.storyboard */; };
+		AE1B5557257012CD00D704A6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1B5556257012CD00D704A6 /* main.m */; };
+		AE1B5561257012CE00D704A6 /* JiaJiaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1B5560257012CE00D704A6 /* JiaJiaUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AE1B555D257012CD00D704A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE1B5539257012CB00D704A6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE1B5540257012CB00D704A6;
+			remoteInfo = JiaJia;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AE1B5541257012CB00D704A6 /* JiaJia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JiaJia.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE1B5544257012CB00D704A6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AE1B5545257012CB00D704A6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AE1B5547257012CB00D704A6 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
+		AE1B5548257012CB00D704A6 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
+		AE1B554A257012CB00D704A6 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		AE1B554B257012CB00D704A6 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		AE1B554E257012CB00D704A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		AE1B5550257012CD00D704A6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AE1B5553257012CD00D704A6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AE1B5555257012CD00D704A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE1B5556257012CD00D704A6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AE1B555C257012CD00D704A6 /* JiaJiaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JiaJiaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE1B5560257012CE00D704A6 /* JiaJiaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JiaJiaUITests.m; sourceTree = "<group>"; };
+		AE1B5562257012CE00D704A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE43DA63257014CC00516F7E /* JiaJia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JiaJia.entitlements; sourceTree = "<group>"; };
+		CC57CC46F46C25635F14F414 /* Pods_JiaJia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_JiaJia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCA9ECF37CC6EC7717DDA90D /* Pods-JiaJia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaJia.release.xcconfig"; path = "Target Support Files/Pods-JiaJia/Pods-JiaJia.release.xcconfig"; sourceTree = "<group>"; };
+		E9B6FCE80AEAB15417C1AB2D /* Pods-JiaJia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-JiaJia.debug.xcconfig"; path = "Target Support Files/Pods-JiaJia/Pods-JiaJia.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE1B553E257012CB00D704A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50E5605C0705D1391D3BAC11 /* Pods_JiaJia.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE1B5559257012CD00D704A6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		34E773633349033FB44EEE2A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC57CC46F46C25635F14F414 /* Pods_JiaJia.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		98261C8E73645C4E2B44CE24 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E9B6FCE80AEAB15417C1AB2D /* Pods-JiaJia.debug.xcconfig */,
+				CCA9ECF37CC6EC7717DDA90D /* Pods-JiaJia.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		AE1B5538257012CB00D704A6 = {
+			isa = PBXGroup;
+			children = (
+				AE1B5543257012CB00D704A6 /* JiaJia */,
+				AE1B555F257012CD00D704A6 /* JiaJiaUITests */,
+				AE1B5542257012CB00D704A6 /* Products */,
+				98261C8E73645C4E2B44CE24 /* Pods */,
+				34E773633349033FB44EEE2A /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		AE1B5542257012CB00D704A6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B5541257012CB00D704A6 /* JiaJia.app */,
+				AE1B555C257012CD00D704A6 /* JiaJiaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AE1B5543257012CB00D704A6 /* JiaJia */ = {
+			isa = PBXGroup;
+			children = (
+				AE43DA63257014CC00516F7E /* JiaJia.entitlements */,
+				AE1B5544257012CB00D704A6 /* AppDelegate.h */,
+				AE1B5545257012CB00D704A6 /* AppDelegate.m */,
+				AE1B5547257012CB00D704A6 /* SceneDelegate.h */,
+				AE1B5548257012CB00D704A6 /* SceneDelegate.m */,
+				AE1B554A257012CB00D704A6 /* ViewController.h */,
+				AE1B554B257012CB00D704A6 /* ViewController.m */,
+				AE1B554D257012CB00D704A6 /* Main.storyboard */,
+				AE1B5550257012CD00D704A6 /* Assets.xcassets */,
+				AE1B5552257012CD00D704A6 /* LaunchScreen.storyboard */,
+				AE1B5555257012CD00D704A6 /* Info.plist */,
+				AE1B5556257012CD00D704A6 /* main.m */,
+			);
+			path = JiaJia;
+			sourceTree = "<group>";
+		};
+		AE1B555F257012CD00D704A6 /* JiaJiaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AE1B5560257012CE00D704A6 /* JiaJiaUITests.m */,
+				AE1B5562257012CE00D704A6 /* Info.plist */,
+			);
+			path = JiaJiaUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AE1B5540257012CB00D704A6 /* JiaJia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE1B5565257012CE00D704A6 /* Build configuration list for PBXNativeTarget "JiaJia" */;
+			buildPhases = (
+				10EAD6054C72FF4278AABFFD /* [CP] Check Pods Manifest.lock */,
+				AE1B553D257012CB00D704A6 /* Sources */,
+				AE1B553E257012CB00D704A6 /* Frameworks */,
+				AE1B553F257012CB00D704A6 /* Resources */,
+				FB567D1EC003698F26B3368C /* [CP] Embed Pods Frameworks */,
+				5C513DEC51B880A9BAFC1EE5 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JiaJia;
+			productName = JiaJia;
+			productReference = AE1B5541257012CB00D704A6 /* JiaJia.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AE1B555B257012CD00D704A6 /* JiaJiaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE1B5568257012CE00D704A6 /* Build configuration list for PBXNativeTarget "JiaJiaUITests" */;
+			buildPhases = (
+				AE1B5558257012CD00D704A6 /* Sources */,
+				AE1B5559257012CD00D704A6 /* Frameworks */,
+				AE1B555A257012CD00D704A6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE1B555E257012CD00D704A6 /* PBXTargetDependency */,
+			);
+			name = JiaJiaUITests;
+			productName = JiaJiaUITests;
+			productReference = AE1B555C257012CD00D704A6 /* JiaJiaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE1B5539257012CB00D704A6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1160;
+				ORGANIZATIONNAME = zeng;
+				TargetAttributes = {
+					AE1B5540257012CB00D704A6 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+					AE1B555B257012CD00D704A6 = {
+						CreatedOnToolsVersion = 11.6;
+						TestTargetID = AE1B5540257012CB00D704A6;
+					};
+				};
+			};
+			buildConfigurationList = AE1B553C257012CB00D704A6 /* Build configuration list for PBXProject "JiaJia" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AE1B5538257012CB00D704A6;
+			productRefGroup = AE1B5542257012CB00D704A6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE1B5540257012CB00D704A6 /* JiaJia */,
+				AE1B555B257012CD00D704A6 /* JiaJiaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AE1B553F257012CB00D704A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE1B5554257012CD00D704A6 /* LaunchScreen.storyboard in Resources */,
+				AE1B5551257012CD00D704A6 /* Assets.xcassets in Resources */,
+				AE1B554F257012CB00D704A6 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE1B555A257012CD00D704A6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		10EAD6054C72FF4278AABFFD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-JiaJia-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5C513DEC51B880A9BAFC1EE5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JiaJia/Pods-JiaJia-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JiaJia/Pods-JiaJia-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JiaJia/Pods-JiaJia-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FB567D1EC003698F26B3368C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JiaJia/Pods-JiaJia-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-JiaJia/Pods-JiaJia-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-JiaJia/Pods-JiaJia-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AE1B553D257012CB00D704A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE1B554C257012CB00D704A6 /* ViewController.m in Sources */,
+				AE1B5546257012CB00D704A6 /* AppDelegate.m in Sources */,
+				AE1B5557257012CD00D704A6 /* main.m in Sources */,
+				AE1B5549257012CB00D704A6 /* SceneDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE1B5558257012CD00D704A6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE1B5561257012CE00D704A6 /* JiaJiaUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AE1B555E257012CD00D704A6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE1B5540257012CB00D704A6 /* JiaJia */;
+			targetProxy = AE1B555D257012CD00D704A6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AE1B554D257012CB00D704A6 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE1B554E257012CB00D704A6 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		AE1B5552257012CD00D704A6 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE1B5553257012CD00D704A6 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AE1B5563257012CE00D704A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AE1B5564257012CE00D704A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AE1B5566257012CE00D704A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E9B6FCE80AEAB15417C1AB2D /* Pods-JiaJia.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JiaJia/JiaJia.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67776SHMMW;
+				INFOPLIST_FILE = JiaJia/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuenvshen.blog;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AE1B5567257012CE00D704A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCA9ECF37CC6EC7717DDA90D /* Pods-JiaJia.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = JiaJia/JiaJia.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67776SHMMW;
+				INFOPLIST_FILE = JiaJia/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuenvshen.blog;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AE1B5569257012CE00D704A6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67776SHMMW;
+				INFOPLIST_FILE = JiaJiaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuenvshen.app.JiaJiaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JiaJia;
+			};
+			name = Debug;
+		};
+		AE1B556A257012CE00D704A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 67776SHMMW;
+				INFOPLIST_FILE = JiaJiaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.yuenvshen.app.JiaJiaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JiaJia;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AE1B553C257012CB00D704A6 /* Build configuration list for PBXProject "JiaJia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE1B5563257012CE00D704A6 /* Debug */,
+				AE1B5564257012CE00D704A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE1B5565257012CE00D704A6 /* Build configuration list for PBXNativeTarget "JiaJia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE1B5566257012CE00D704A6 /* Debug */,
+				AE1B5567257012CE00D704A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE1B5568257012CE00D704A6 /* Build configuration list for PBXNativeTarget "JiaJiaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE1B5569257012CE00D704A6 /* Debug */,
+				AE1B556A257012CE00D704A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AE1B5539257012CB00D704A6 /* Project object */;
+}

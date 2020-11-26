@@ -1,0 +1,30 @@
+PODS:
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - Weibo_SDK (3.3.0)
+
+DEPENDENCIES:
+  - FMDB
+  - Weibo_SDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
+
+SPEC REPOS:
+  trunk:
+    - FMDB
+
+EXTERNAL SOURCES:
+  Weibo_SDK:
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+CHECKOUT OPTIONS:
+  Weibo_SDK:
+    :commit: acd1f69f62edefe499aa75540fcad2eefcb57c57
+    :git: https://github.com/sinaweibosdk/weibo_ios_sdk.git
+
+SPEC CHECKSUMS:
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  Weibo_SDK: 7478846cccb43c4785ba76b214115fb7ec9dc0d4
+
+PODFILE CHECKSUM: e41cc5fbba6be99e279ad3aa8e7b1765e8c6036e
+
+COCOAPODS: 1.9.1
