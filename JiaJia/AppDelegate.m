@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import <WeiboSDK.h>
 #import "ViewController.h"
+#import "Weibo.h"
 
 @interface AppDelegate ()
 @property (strong, nonatomic) id viewController;
@@ -56,6 +57,7 @@
 - (void)didReceiveWeiboResponse:(WBBaseResponse *)response {
     if (response.statusCode == WeiboSDKResponseStatusCodeSuccess) {
         NSLog(@"%@", response.userInfo);
+        [[Weibo shareInstance] setWeiboUser:response.userInfo];
     }
 }
 

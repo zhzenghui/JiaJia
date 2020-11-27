@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import <WeiboSDK.h>
-#define kRedirectURL @"https://api.weibo.com/oauth2/default.html"
+#import "Weibo.h"
 
 @interface ViewController ()
 
@@ -24,28 +24,34 @@
 
     UIButton *b = [[UIButton alloc] init];
     [self.view addSubview:b];
-    b.frame = CGRectMake(0, 0, r.size.width, r.size.height);
+    b.frame = CGRectMake(0, 0, r.size.width, 100);
     [b addTarget:self action:@selector(openButton) forControlEvents:UIControlEventTouchUpInside];
-
+    
+    UIButton *b1 = [[UIButton alloc] init];
+    [self.view addSubview:b1];
+    b1.frame = CGRectMake(0, 100, r.size.width, 100);
+    [b1 addTarget:self action:@selector(getHome) forControlEvents:UIControlEventTouchUpInside];
+    b1.backgroundColor = [UIColor blueColor];
+    
 }
 
 - (void)openButton {
-
     [self openWeibo];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    [[Weibo shareInstance] getWeiboUser];
 
 }
 
 - (void)openWeibo {
-    WBAuthorizeRequest *req = [WBAuthorizeRequest request];
-    req.redirectURI = kRedirectURL;
-    [req setScope:@"all"];
-    [req setUserInfo:@{@"sso":@"sendlogin", @"Other_Info_1": @123}];
-    [WeiboSDK sendRequest:req completion:^(BOOL success) {
-        NSLog(@"成功%i", success);
-    }];}
+    [[Weibo shareInstance] reqSSOWeiboUser];
+}
+
+- (void)getHome {
+    //https://api.weibo.com/2/statuses/home_timeline.json
+    
+}
 @end
 
