@@ -9,6 +9,9 @@
 #import "ViewController.h"
 #import <WeiboSDK.h>
 #import "Weibo.h"
+#import <AFNetworking/AFNetworking.h>
+#import "WBTimelineItem.h"
+#import "NSObject+ZModel.h"
 
 @interface ViewController ()
 
@@ -51,7 +54,30 @@
 
 - (void)getHome {
     //https://api.weibo.com/2/statuses/home_timeline.json
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+
+    NSString *URLString = @"https://api.weibo.com/2/statuses/home_timeline.json";
+    NSDictionary *parameters = @{@"access_token": [Weibo shareInstance].user.accessToken};
+    NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:URLString parameters:parameters error:nil];
     
+
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
+            
+    } downloadProgress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+
+        WBTimelineItem *item = [WBTimelineItem modelWithDictionary:(NSDictionary *)responseObject];
+        
+        for (WBStatus *status in item.statuses) {
+            NSLog(@"%@", status.idstr);
+
+        }
+    }];
+
+    [dataTask resume];
 }
+
 @end
 

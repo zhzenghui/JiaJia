@@ -16,6 +16,10 @@
 		AE1B5554257012CD00D704A6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE1B5552257012CD00D704A6 /* LaunchScreen.storyboard */; };
 		AE1B5557257012CD00D704A6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1B5556257012CD00D704A6 /* main.m */; };
 		AE1B5561257012CE00D704A6 /* JiaJiaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE1B5560257012CE00D704A6 /* JiaJiaUITests.m */; };
+		AE5E82E225713B84008CDEFF /* NSObject+ZModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5E82E125713B84008CDEFF /* NSObject+ZModel.m */; };
+		AE5E82E925713C39008CDEFF /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5E82E825713C39008CDEFF /* YYClassInfo.m */; };
+		AE5E83022571564D008CDEFF /* WBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5E83012571564D008CDEFF /* WBStatus.m */; };
+		AE5E830725715707008CDEFF /* WBTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5E830625715707008CDEFF /* WBTimelineItem.m */; };
 		AE90F0342570DB42002327E8 /* Weibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AE90F0332570DB42002327E8 /* Weibo.m */; };
 		AE90F03B2570DBD7002327E8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AE90F03A2570DBD7002327E8 /* User.m */; };
 /* End PBXBuildFile section */
@@ -47,6 +51,14 @@
 		AE1B5560257012CE00D704A6 /* JiaJiaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JiaJiaUITests.m; sourceTree = "<group>"; };
 		AE1B5562257012CE00D704A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AE43DA63257014CC00516F7E /* JiaJia.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = JiaJia.entitlements; sourceTree = "<group>"; };
+		AE5E82E025713B84008CDEFF /* NSObject+ZModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+ZModel.h"; sourceTree = "<group>"; };
+		AE5E82E125713B84008CDEFF /* NSObject+ZModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ZModel.m"; sourceTree = "<group>"; };
+		AE5E82E725713C39008CDEFF /* YYClassInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = YYClassInfo.h; sourceTree = "<group>"; };
+		AE5E82E825713C39008CDEFF /* YYClassInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = YYClassInfo.m; sourceTree = "<group>"; };
+		AE5E83002571564D008CDEFF /* WBStatus.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBStatus.h; sourceTree = "<group>"; };
+		AE5E83012571564D008CDEFF /* WBStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WBStatus.m; sourceTree = "<group>"; };
+		AE5E830525715707008CDEFF /* WBTimelineItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBTimelineItem.h; sourceTree = "<group>"; };
+		AE5E830625715707008CDEFF /* WBTimelineItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WBTimelineItem.m; sourceTree = "<group>"; };
 		AE90F0322570DB42002327E8 /* Weibo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Weibo.h; sourceTree = "<group>"; };
 		AE90F0332570DB42002327E8 /* Weibo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Weibo.m; sourceTree = "<group>"; };
 		AE90F0392570DBD7002327E8 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -115,6 +127,7 @@
 		AE1B5543257012CB00D704A6 /* JiaJia */ = {
 			isa = PBXGroup;
 			children = (
+				AE5E82DF25713B51008CDEFF /* New Group */,
 				AE90F0322570DB42002327E8 /* Weibo.h */,
 				AE90F0332570DB42002327E8 /* Weibo.m */,
 				AE90F03E2570DBEF002327E8 /* Model */,
@@ -143,11 +156,26 @@
 			path = JiaJiaUITests;
 			sourceTree = "<group>";
 		};
+		AE5E82DF25713B51008CDEFF /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				AE5E82E025713B84008CDEFF /* NSObject+ZModel.h */,
+				AE5E82E125713B84008CDEFF /* NSObject+ZModel.m */,
+				AE5E82E725713C39008CDEFF /* YYClassInfo.h */,
+				AE5E82E825713C39008CDEFF /* YYClassInfo.m */,
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		AE90F03E2570DBEF002327E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				AE90F0392570DBD7002327E8 /* User.h */,
 				AE90F03A2570DBD7002327E8 /* User.m */,
+				AE5E83002571564D008CDEFF /* WBStatus.h */,
+				AE5E83012571564D008CDEFF /* WBStatus.m */,
+				AE5E830525715707008CDEFF /* WBTimelineItem.h */,
+				AE5E830625715707008CDEFF /* WBTimelineItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -314,9 +342,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE5E830725715707008CDEFF /* WBTimelineItem.m in Sources */,
 				AE1B554C257012CB00D704A6 /* ViewController.m in Sources */,
+				AE5E83022571564D008CDEFF /* WBStatus.m in Sources */,
 				AE90F0342570DB42002327E8 /* Weibo.m in Sources */,
 				AE90F03B2570DBD7002327E8 /* User.m in Sources */,
+				AE5E82E225713B84008CDEFF /* NSObject+ZModel.m in Sources */,
+				AE5E82E925713C39008CDEFF /* YYClassInfo.m in Sources */,
 				AE1B5546257012CB00D704A6 /* AppDelegate.m in Sources */,
 				AE1B5557257012CD00D704A6 /* main.m in Sources */,
 				AE1B5549257012CB00D704A6 /* SceneDelegate.m in Sources */,
@@ -479,6 +511,7 @@
 				CODE_SIGN_ENTITLEMENTS = JiaJia/JiaJia.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 67776SHMMW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = JiaJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -499,6 +532,7 @@
 				CODE_SIGN_ENTITLEMENTS = JiaJia/JiaJia.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 67776SHMMW;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				INFOPLIST_FILE = JiaJia/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
