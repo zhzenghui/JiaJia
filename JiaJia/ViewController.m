@@ -58,7 +58,7 @@
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
 
     NSString *URLString = @"https://api.weibo.com/2/statuses/home_timeline.json";
-    NSDictionary *parameters = @{@"access_token": [Weibo shareInstance].user.accessToken};
+    NSDictionary *parameters = @{@"access_token": [Weibo shareInstance].user.accessToken, @"feature":@2};
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:URLString parameters:parameters error:nil];
     
 
@@ -72,6 +72,7 @@
         
         for (WBStatus *status in item.statuses) {
             NSLog(@"%@", status.idstr);
+            NSLog(@"%@", status.pics);
 
         }
     }];
