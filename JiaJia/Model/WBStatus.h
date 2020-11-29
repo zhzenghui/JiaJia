@@ -21,6 +21,11 @@ typedef NS_ENUM(NSUInteger, WBPictureBadgeType) {
     WBPictureBadgeTypeGIF,      ///< GIF
 };
 
+#define  KchangeReasonKey  @"reason"
+#define  KnewValueKey  @"newValue"
+#define  KoldValueKey  @"oldValue"
+#define  Kadded  @"added"
+#define  Kremoved  @"removed"
 
 NS_ASSUME_NONNULL_BEGIN
 /**
@@ -143,6 +148,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WBPictureUrl : NSObject
 
 @property (nonatomic, strong) NSString *thumbnailPic;
+@property (nonatomic, strong) WBPictureMetadata *bmiddle;    ///< w:360 (列表中的缩略图)
+@property (nonatomic, strong) WBPictureMetadata *largest;    ///<       (查看原图)
+@property (nonatomic, assign) BOOL keepSize; ///< YES:固定为方形 NO:原始宽高比
 
 @end
 

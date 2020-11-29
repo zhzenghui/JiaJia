@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WBNetworkStore.h"
 
 @interface ViewController : UIViewController
 
+@property (strong, nonatomic) WBTimelineItem *timeLineItem;
 
 @end
 

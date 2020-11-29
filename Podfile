@@ -9,5 +9,5 @@ target 'JiaJia' do
   pod 'FMDB'
   pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
   pod 'AFNetworking', '~> 4.0'
-
+  pod 'YYKit'
 end

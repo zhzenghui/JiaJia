@@ -18,16 +18,21 @@ PODS:
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
   - Weibo_SDK (3.3.0)
+  - YYKit (1.0.9):
+    - YYKit/no-arc (= 1.0.9)
+  - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
   - AFNetworking (~> 4.0)
   - FMDB
   - Weibo_SDK (from `https://github.com/sinaweibosdk/weibo_ios_sdk.git`)
+  - YYKit
 
 SPEC REPOS:
   trunk:
     - AFNetworking
     - FMDB
+    - YYKit
 
 EXTERNAL SOURCES:
   Weibo_SDK:
@@ -42,7 +47,8 @@ SPEC CHECKSUMS:
   AFNetworking: 7864c38297c79aaca1500c33288e429c3451fdce
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   Weibo_SDK: 7478846cccb43c4785ba76b214115fb7ec9dc0d4
+  YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 3ec802fa155484b673dd25f01ce9f15b6ae203be
+PODFILE CHECKSUM: 3f86fb1604f4cd9c0afcd904e8ce55f307082d87
 
 COCOAPODS: 1.9.1
