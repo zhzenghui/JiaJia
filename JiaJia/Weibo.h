@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)reqSSOWeiboUser;
 
-- (void)setWeiboUser:(NSDictionary *)user;
+- (void)setWeiboUser:(NSDictionary *)dict;
 /// 获取user dict 给user对象赋值
 - (void)getWeiboUser;
 

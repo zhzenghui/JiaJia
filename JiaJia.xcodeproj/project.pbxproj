@@ -20,6 +20,8 @@
 		AE5E82E925713C39008CDEFF /* YYClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5E82E825713C39008CDEFF /* YYClassInfo.m */; };
 		AE5E83022571564D008CDEFF /* WBStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5E83012571564D008CDEFF /* WBStatus.m */; };
 		AE5E830725715707008CDEFF /* WBTimelineItem.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5E830625715707008CDEFF /* WBTimelineItem.m */; };
+		AE5F3EFC2574EC28006DA2E7 /* PhotoLibraryHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5F3EFB2574EC28006DA2E7 /* PhotoLibraryHelper.m */; };
+		AE5F3F0E25753D96006DA2E7 /* ZHImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AE5F3F0D25753D96006DA2E7 /* ZHImageManager.m */; };
 		AE61030725739D2E00E7FD51 /* ImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61030625739D2E00E7FD51 /* ImageTableViewCell.m */; };
 		AE6104402573B76A00BBDCA7 /* WBStatusLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61043D2573B76A00BBDCA7 /* WBStatusLayout.m */; };
 		AE6104412573B76A00BBDCA7 /* WBStatusCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61043F2573B76A00BBDCA7 /* WBStatusCell.m */; };
@@ -27,6 +29,7 @@
 		AE6104512573B92300BBDCA7 /* YYTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE61044F2573B92300BBDCA7 /* YYTableView.m */; };
 		AE6104562573B93B00BBDCA7 /* YYControl.m in Sources */ = {isa = PBXBuildFile; fileRef = AE6104552573B93B00BBDCA7 /* YYControl.m */; };
 		AE6105442573B96D00BBDCA7 /* WBStatusHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE6105432573B96D00BBDCA7 /* WBStatusHelper.m */; };
+		AE61054B2573D4C800BBDCA7 /* YYPhotoGroupView.m in Sources */ = {isa = PBXBuildFile; fileRef = AE6105492573D4C800BBDCA7 /* YYPhotoGroupView.m */; };
 		AE65073225735A3F0073DBCD /* WBNetworkStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AE65073125735A3F0073DBCD /* WBNetworkStore.m */; };
 		AE90F0342570DB42002327E8 /* Weibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AE90F0332570DB42002327E8 /* Weibo.m */; };
 		AE90F03B2570DBD7002327E8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AE90F03A2570DBD7002327E8 /* User.m */; };
@@ -67,6 +70,10 @@
 		AE5E83012571564D008CDEFF /* WBStatus.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WBStatus.m; sourceTree = "<group>"; };
 		AE5E830525715707008CDEFF /* WBTimelineItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBTimelineItem.h; sourceTree = "<group>"; };
 		AE5E830625715707008CDEFF /* WBTimelineItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WBTimelineItem.m; sourceTree = "<group>"; };
+		AE5F3EFA2574EC28006DA2E7 /* PhotoLibraryHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoLibraryHelper.h; sourceTree = "<group>"; };
+		AE5F3EFB2574EC28006DA2E7 /* PhotoLibraryHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoLibraryHelper.m; sourceTree = "<group>"; };
+		AE5F3F0C25753D96006DA2E7 /* ZHImageManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZHImageManager.h; sourceTree = "<group>"; };
+		AE5F3F0D25753D96006DA2E7 /* ZHImageManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZHImageManager.m; sourceTree = "<group>"; };
 		AE61030525739D2E00E7FD51 /* ImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTableViewCell.h; sourceTree = "<group>"; };
 		AE61030625739D2E00E7FD51 /* ImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTableViewCell.m; sourceTree = "<group>"; };
 		AE61043C2573B76A00BBDCA7 /* WBStatusCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBStatusCell.h; sourceTree = "<group>"; };
@@ -81,6 +88,8 @@
 		AE6104552573B93B00BBDCA7 /* YYControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYControl.m; sourceTree = "<group>"; };
 		AE6105422573B96D00BBDCA7 /* WBStatusHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBStatusHelper.h; sourceTree = "<group>"; };
 		AE6105432573B96D00BBDCA7 /* WBStatusHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBStatusHelper.m; sourceTree = "<group>"; };
+		AE6105492573D4C800BBDCA7 /* YYPhotoGroupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYPhotoGroupView.m; sourceTree = "<group>"; };
+		AE61054A2573D4C800BBDCA7 /* YYPhotoGroupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYPhotoGroupView.h; sourceTree = "<group>"; };
 		AE65073025735A3F0073DBCD /* WBNetworkStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WBNetworkStore.h; sourceTree = "<group>"; };
 		AE65073125735A3F0073DBCD /* WBNetworkStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WBNetworkStore.m; sourceTree = "<group>"; };
 		AE90F0322570DB42002327E8 /* Weibo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Weibo.h; sourceTree = "<group>"; };
@@ -155,6 +164,10 @@
 				AE5E82DF25713B51008CDEFF /* New Group */,
 				AE90F0322570DB42002327E8 /* Weibo.h */,
 				AE90F0332570DB42002327E8 /* Weibo.m */,
+				AE5F3EFA2574EC28006DA2E7 /* PhotoLibraryHelper.h */,
+				AE5F3EFB2574EC28006DA2E7 /* PhotoLibraryHelper.m */,
+				AE5F3F0C25753D96006DA2E7 /* ZHImageManager.h */,
+				AE5F3F0D25753D96006DA2E7 /* ZHImageManager.m */,
 				AE6104392573B75700BBDCA7 /* View */,
 				AE90F03E2570DBEF002327E8 /* Model */,
 				AE43DA63257014CC00516F7E /* JiaJia.entitlements */,
@@ -196,6 +209,8 @@
 		AE6104392573B75700BBDCA7 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				AE61054A2573D4C800BBDCA7 /* YYPhotoGroupView.h */,
+				AE6105492573D4C800BBDCA7 /* YYPhotoGroupView.m */,
 				AE61043C2573B76A00BBDCA7 /* WBStatusCell.h */,
 				AE61043F2573B76A00BBDCA7 /* WBStatusCell.m */,
 				AE61043E2573B76A00BBDCA7 /* WBStatusLayout.h */,
@@ -405,17 +420,20 @@
 				AE1B554C257012CB00D704A6 /* ViewController.m in Sources */,
 				AE5E83022571564D008CDEFF /* WBStatus.m in Sources */,
 				AE90F0342570DB42002327E8 /* Weibo.m in Sources */,
+				AE61054B2573D4C800BBDCA7 /* YYPhotoGroupView.m in Sources */,
 				AE6105442573B96D00BBDCA7 /* WBStatusHelper.m in Sources */,
 				AE6104412573B76A00BBDCA7 /* WBStatusCell.m in Sources */,
 				AE90F03B2570DBD7002327E8 /* User.m in Sources */,
 				AE5E82E225713B84008CDEFF /* NSObject+ZModel.m in Sources */,
 				AE5E82E925713C39008CDEFF /* YYClassInfo.m in Sources */,
 				AE1B5546257012CB00D704A6 /* AppDelegate.m in Sources */,
+				AE5F3F0E25753D96006DA2E7 /* ZHImageManager.m in Sources */,
 				AE6104402573B76A00BBDCA7 /* WBStatusLayout.m in Sources */,
 				AE6104502573B92300BBDCA7 /* YYTableViewCell.m in Sources */,
 				AE6104512573B92300BBDCA7 /* YYTableView.m in Sources */,
 				AE1B5557257012CD00D704A6 /* main.m in Sources */,
 				AE6104562573B93B00BBDCA7 /* YYControl.m in Sources */,
+				AE5F3EFC2574EC28006DA2E7 /* PhotoLibraryHelper.m in Sources */,
 				AE1B5549257012CB00D704A6 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

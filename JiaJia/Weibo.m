@@ -42,18 +42,20 @@ static NSString *weiboKey = @"weibo_key";
     }];
 }
 
-- (void)setWeiboUser:(NSDictionary *)user {
-    [[NSUserDefaults standardUserDefaults] setObject:user forKey:weiboKey];
+- (void)setWeiboUser:(NSDictionary *)dict {
+    [[NSUserDefaults standardUserDefaults] setObject:dict forKey:weiboKey];
+    NSLog(@"%@", dict);
+    self.user.name = dict[@"app"];
+    self.user.accessToken = dict[@"access_token"];
+    self.user.refreshToken = dict[@"refresh_token"];
 }
 - (void)getWeiboUser {
     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:weiboKey];
     self.user.name = dict[@"app"];
     self.user.accessToken = dict[@"access_token"];
     self.user.refreshToken = dict[@"refresh_token"];
-    self.user.accessToken = @"2.00_3VrQGTLokcE9c764362eayN2S9E";
+//    self.user.accessToken = @"2.00KuUszBTLokcEf5b59341f00WPiVG";
     NSLog(@"set user success token %@", self.user.accessToken);
-//    2020-11-27 15:25:44.595629+0800 JiaJia[6326:1473506] set user success token 2.00_3VrQGTLokcE9c764362eayN2S9E
-//    2020-11-27 15:25:44.595629+0800 JiaJia[6326:1473506] set user success token 2.00_3VrQGTLokcE9c764362eayN2S9E
 
 }
 

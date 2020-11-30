@@ -43,13 +43,19 @@ static NSString *weiboKey = @"weibo_key";
     return fooDict;
 }
 
-- (void)getHome:(NSString *)page {
+- (void)getHome:(NSString *)sinceID maxID:(NSString *)maxID {
     //https://api.weibo.com/2/statuses/home_timeline.json
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
 
     NSString *URLString = @"https://api.weibo.com/2/statuses/home_timeline.json";
-    NSDictionary *parameters = @{@"access_token": [Weibo shareInstance].user.accessToken, @"feature":@2};
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary: @{@"access_token": [Weibo shareInstance].user.accessToken}];
+    if (maxID) {
+        [parameters setObject:maxID forKey:@"max_id"];
+    }
+    if (sinceID) {
+        [parameters setObject:sinceID forKey:@"since_id"];
+    }
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:URLString parameters:parameters error:nil];
     
 
@@ -59,6 +65,10 @@ static NSString *weiboKey = @"weibo_key";
         
     } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
         NSLog(@"%@", [NSThread currentThread]);
+        if (error) {
+            NSLog(@"%@", error);
+            return;
+        }
         WBTimelineItem *item = [WBTimelineItem modelWithDictionary:(NSDictionary *)responseObject];
         for (WBStatus *status in item.statuses) {
             NSLog(@"%@", status.idstr);
@@ -66,7 +76,8 @@ static NSString *weiboKey = @"weibo_key";
         }
         self.timeLineItem = item;
         NSDictionary *dict = @{};
-        if ([page isEqualToString:@"1"]) {
+        if ([maxID isEqualToString:@"0"]) {
+            dict = @{KchangeReasonKey:Kfirst};
         }
         else {
             dict = @{KchangeReasonKey:Kadded};

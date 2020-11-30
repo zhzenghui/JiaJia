@@ -44,6 +44,26 @@
 + (NSDictionary *)modelCustomPropertyMapper {
     return @{@"thumbnailPic" : @"thumbnail_pic"};
 }
+- (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
+    // 自动 model-mapper 不能完成的，这里可以进行额外处理
+    NSString *str = dic[@"thumbnail_pic"];
+    WBPictureMetadata *meta = [WBPictureMetadata new];
+    WBPictureMetadata *meta1 = [WBPictureMetadata new];
+    WBPictureMetadata *meta2 = [WBPictureMetadata new];
+    NSString *metaStr= [str stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"orj360"];
+    NSString *metaStr1= [str stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"mw1024"];
+    NSString *metaStr2= [str stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"large"];
+    meta.url = [NSURL URLWithString:metaStr];
+    meta1.url = [NSURL URLWithString:metaStr1];
+    meta2.url = [NSURL URLWithString:metaStr2];
+
+    
+    _bmiddle = meta;
+    _large = meta1;
+    _largest = meta2;
+    return YES;
+}
+
 @end
 
 

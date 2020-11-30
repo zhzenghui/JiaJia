@@ -34,9 +34,9 @@
 //        [cls performSelector:sel withObject:@"https"];
 //    }
 //    NSLog(@"launchTime = %f秒", CFAbsoluteTimeGetCurrent() - launchTime);
-
-    self.viewController = [[ViewController alloc] init];
-    self.window.rootViewController = self.viewController;
+    UIViewController *vc = [[ViewController alloc] init];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
 
     return YES;

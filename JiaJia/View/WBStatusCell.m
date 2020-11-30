@@ -693,6 +693,7 @@
         imageView.backgroundColor = kWBCellHighlightColor;
         imageView.exclusiveTouch = YES;
         imageView.touchBlock = ^(YYControl *view, YYGestureRecognizerState state, NSSet *touches, UIEvent *event) {
+            NSLog(@"%@", weak_self.cell.delegate);
             if (![weak_self.cell.delegate respondsToSelector:@selector(cell:didClickImageAtIndex:)]) return;
             if (state == YYGestureRecognizerStateEnded) {
                 UITouch *touch = touches.anyObject;
@@ -887,9 +888,10 @@
                     badge.hidden = NO;
                 } break;
             }
-            
+//            小图
             @weakify(imageView);
-            NSURL *url = [NSURL URLWithString:pic.thumbnailPic];
+            NSString *string = [pic.thumbnailPic stringByReplacingOccurrencesOfString:@"thumbnail" withString:@"orj360"];
+            NSURL *url = [NSURL URLWithString:string];
             [imageView.layer setImageWithURL:url
                                  placeholder:nil
                                      options:YYWebImageOptionAvoidSetImage
@@ -897,8 +899,8 @@
                 @strongify(imageView);
                 if (!imageView) return;
                 if (image && stage == YYWebImageStageFinished) {
-                    int width = pic.bmiddle.width;
-                    int height = pic.bmiddle.height;
+                    int width = image.size.width;
+                    int height = image.size.height;
                     CGFloat scale = (height / width) / (imageView.height / imageView.width);
                     if (scale < 0.99 || isnan(scale)) { // 宽图把左右两边裁掉
                         imageView.contentMode = UIViewContentModeScaleAspectFill;

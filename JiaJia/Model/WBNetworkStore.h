@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)shareInstance;
 
-- (void)getHome:(NSString *)page;
+- (void)getHome:(NSString *)sinceID maxID:(NSString *)maxID;
 
 
 @end
