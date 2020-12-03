@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)shareInstance;
 
 - (void)getHome:(NSString *)sinceID maxID:(NSString *)maxID;
+- (void)getUserTimeline:(NSString *)sinceID maxID:(NSString *)maxID;
 
 
 @end

@@ -8,7 +8,27 @@
 
 #import "ZHImageManager.h"
 
-@implementation ZHImageManager
+@implementation ZHImageManager {
+    NSOperation *_operation;
+    dispatch_semaphore_t _lock;
+
+}
+
+
+
+- (instancetype)initWithCache:(YYImageCache *)cache queue:(NSOperationQueue *)queue{
+    self = [super init];
+    if (!self) return nil;
+    _cache = cache;
+    _queue = queue;
+    _timeout = 15.0;
+    if (YYImageWebPAvailable()) {
+        _headers = @{ @"Accept" : @"image/webp,image/*;q=0.8" };
+    } else {
+        _headers = @{ @"Accept" : @"image/*;q=0.8" };
+    }
+    return self;
+}
 
 + (instancetype)sharedManager {
     static ZHImageManager *manager;
@@ -46,9 +66,6 @@
                                                                         transform:transform ? transform : _sharedTransformBlock
                                                                        completion:completion];
 
-//    if (_username && _password) {
-//        operation.credential = [NSURLCredential credentialWithUser:_username password:_password persistence:NSURLCredentialPersistenceForSession];
-//    }
     if (operation) {
         NSOperationQueue *queue = _queue;
         if (queue) {
@@ -71,15 +88,28 @@
 }
 
 - (void)setImageWithURL:(NSURL *)imageURL
-            placeholder:(UIImage *)placeholder
                 options:(YYWebImageOptions)options
-                manager:(YYWebImageManager *)manager
                progress:(YYWebImageProgressBlock)progress
               transform:(YYWebImageTransformBlock)transform
              completion:(YYWebImageCompletionBlock)completion {
     if ([imageURL isKindOfClass:[NSString class]]) imageURL = [NSURL URLWithString:(id)imageURL];
-    manager = manager ? manager : [YYWebImageManager sharedManager];
+    ZHImageManager *manager = [ZHImageManager sharedManager];
+
+    // get the image from memory as quickly as possible
+    UIImage *imageFromMemory = nil;
+    if (manager.cache &&
+        !(options & YYWebImageOptionUseNSURLCache) &&
+        !(options & YYWebImageOptionRefreshImageCache)) {
+        imageFromMemory = [manager.cache getImageForKey:[manager cacheKeyForURL:imageURL] withType:YYImageCacheTypeMemory];
+    }
+
+    if (imageFromMemory) {
+        if(completion) completion(imageFromMemory, imageURL, YYWebImageFromMemoryCacheFast, YYWebImageStageFinished, nil);
+        return;
+    }
     
-    
+    NSOperation *operation = [manager requestImageWithURL:imageURL options:options progress:progress transform:transform completion:completion];
+    _operation = operation;
+
 }
 @end

@@ -6,7 +6,7 @@
 //  Copyright © 2020 zeng. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "UserViewController.h"
 #import <WeiboSDK.h>
 #import "Weibo.h"
 #import <AFNetworking/AFNetworking.h>
@@ -18,14 +18,14 @@
 #import "YYPhotoGroupView.h"
 
 
-@interface ViewController () <UITableViewDelegate, UITableViewDataSource, WBStatusCellDelegate>
+@interface UserViewController () <UITableViewDelegate, UITableViewDataSource, WBStatusCellDelegate>
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *layouts;
 
 @end
 
-@implementation ViewController
+@implementation UserViewController
 
 
 - (instancetype)init {
@@ -61,16 +61,14 @@
     [b2 addTarget:self action:@selector(getMore) forControlEvents:UIControlEventTouchUpInside];
     b2.backgroundColor = [UIColor blueColor];
     
-
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleChangeNotification:) name:WBNetworkStore.changedNotification object:nil];
-    
-    
+    [[Weibo shareInstance] getWeiboUser];
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    [[Weibo shareInstance] getWeiboUser];
-    
+    [self getHome];
 }
 
 #pragma mark - method
@@ -143,7 +141,7 @@
 
 - (void)getMore {
     if( ![self.timeLineItem.maxID isEqualToString:@"0"]  ) {
-        [WBNetworkStore.shareInstance getHome:@"0" maxID:self.timeLineItem.maxID];
+        [WBNetworkStore.shareInstance getUserTimeline:@"0" maxID:self.timeLineItem.maxID];
     }
     
 
@@ -151,7 +149,7 @@
 - (void)getHome {
     [[Weibo shareInstance] getWeiboUser];
 
-    [WBNetworkStore.shareInstance getHome:@"0" maxID:@"0"];
+    [WBNetworkStore.shareInstance getUserTimeline:@"0" maxID:@"0"];
 }
 
 

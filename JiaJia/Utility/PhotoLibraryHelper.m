@@ -58,43 +58,50 @@ static PhotoLibraryHelper *obj = nil;
 
 
 - (void)saveImages:(NSArray *)images {
-    
-    
-    for (UIImage *image in images) {
-        
-        
-        NSError *error = nil;
-        __block PHAssetChangeRequest *placeholder = nil;
-        //   1. 保存所有图片
-        [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-            placeholder = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+    // 2.拥有一个【自定义相册】
+    PHAssetCollection * assetCollection = self.assetCollection;
 
-        } completionHandler:^(BOOL success, NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"%@",@"保存失败");
-            } else {
-                NSLog(@"%@",@"保存成功");
+    
+    for (NSData *image in images) {
+        
+        if (image) {
+            NSError *error = nil;
+            PHAssetChangeRequest *placeholder = nil;
+            //   1. 保存所有图片
+            [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
+//                placeholder = [PHAssetCreationRequest creationRequestForAsset];
+               [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto data:image options:options];
+//                placeholder = [PHAssetChangeRequest creationRequestForAssetFromImage:image];
+
+            } completionHandler:^(BOOL success, NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"%@",@"保存失败");
+                } else {
+                    NSLog(@"%@",@"保存成功");
+                }
+            }];
+            
+            
+            if (assetCollection == nil) {
+                NSLog(@"创建相册失败");
             }
-        }];
-        
-        
-        // 2.拥有一个【自定义相册】
-        PHAssetCollection * assetCollection = self.assetCollection;
-        if (assetCollection == nil) {
-            NSLog(@"创建相册失败");
-        }
-        
-        [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
-            PHAssetCollectionChangeRequest *requtes = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:assetCollection];
-            [requtes addAssets:@[placeholder]];
-        } error:&error];
-        if (error) {
-            NSLog(@"保存图片失败");
-        } else {
-            NSLog(@"保存图片成功");
+            if (assetCollection != nil) {
+                [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+                    PHAssetCollectionChangeRequest *requtes = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:assetCollection];
+                    [requtes addAssets:@[placeholder]];
+                } error:&error];
+                if (error) {
+                    NSLog(@"保存相册失败");
+                } else {
+                    NSLog(@"保存相册成功");
+                }
+            }
+
         }
         
     }
 
 }
+
 @end

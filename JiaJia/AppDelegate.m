@@ -9,7 +9,10 @@
 #import "AppDelegate.h"
 #import <WeiboSDK.h>
 #import "ViewController.h"
+#import "UserViewController.h"
 #import "Weibo.h"
+#import "ZHWebViewController.h"
+#import "T1HomeTimelineItemsViewController.h"
 
 @interface AppDelegate ()
 @property (strong, nonatomic) id viewController;
@@ -35,8 +38,29 @@
 //    }
 //    NSLog(@"launchTime = %f秒", CFAbsoluteTimeGetCurrent() - launchTime);
     UIViewController *vc = [[ViewController alloc] init];
+    vc.title = @"timeline";
+    vc.tabBarItem.title = @"timeline";
+    vc.tabBarItem.image = [UIImage imageNamed:@"tabBar_new_icon"];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    self.window.rootViewController = nav;
+    
+    UIViewController *vc1 = [[UserViewController alloc] init];
+    vc1.tabBarItem.title = @"userline";
+    vc1.title = @"userline";
+
+    vc1.tabBarItem.image = [UIImage imageNamed:@"tabBar_new_icon"];
+    UINavigationController *nav1 = [[UINavigationController alloc] initWithRootViewController:vc1];
+    
+    UITabBarController *tab = [[UITabBarController alloc] init];
+    
+//    ZHWebViewController *vc2 = [[ZHWebViewController alloc] init];
+//    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:vc2];
+    T1HomeTimelineItemsViewController *vc2 = [[T1HomeTimelineItemsViewController alloc] init];
+    vc2.title = @"twitter";
+    vc2.tabBarItem.title = @"twitter";
+    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:vc2];
+    tab.viewControllers = @[nav2, nav, nav1 ];
+    
+    self.window.rootViewController = tab;
     [self.window makeKeyAndVisible];
 
     return YES;

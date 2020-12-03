@@ -56,6 +56,8 @@ static NSString *weiboKey = @"weibo_key";
     if (sinceID) {
         [parameters setObject:sinceID forKey:@"since_id"];
     }
+    
+    
     NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:URLString parameters:parameters error:nil];
     
 
@@ -84,8 +86,55 @@ static NSString *weiboKey = @"weibo_key";
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:WBNetworkStore.changedNotification object:item userInfo:dict];
     }];
+    [dataTask resume];
+    
+}
+
+- (void)getUserTimeline:(NSString *)sinceID maxID:(NSString *)maxID {
+    //https://api.weibo.com/2/statuses/home_timeline.json
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+
+    NSString *URLString = @"https://api.weibo.com/2/statuses/user_timeline.json";
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionaryWithDictionary: @{@"access_token": [Weibo shareInstance].user.accessToken}];
+    if (maxID) {
+        [parameters setObject:maxID forKey:@"max_id"];
+    }
+    if (sinceID) {
+        [parameters setObject:sinceID forKey:@"since_id"];
+    }
+
+    
+    NSURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:@"GET" URLString:URLString parameters:parameters error:nil];
+    NSURLSessionDataTask *dataTask = [manager dataTaskWithRequest:request uploadProgress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } downloadProgress:^(NSProgress * _Nonnull downloadProgress) {
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, id  _Nullable responseObject, NSError * _Nullable error) {
+        NSLog(@"%@", [NSThread currentThread]);
+        if (error) {
+            NSLog(@"%@", error);
+            return;
+        }
+        WBTimelineItem *item = [WBTimelineItem modelWithDictionary:(NSDictionary *)responseObject];
+        for (WBStatus *status in item.statuses) {
+            NSLog(@"%@", status.idstr);
+            NSLog(@"%@", status.pics);
+        }
+        self.timeLineItem = item;
+        NSDictionary *dict = @{};
+        if ([maxID isEqualToString:@"0"]) {
+            dict = @{KchangeReasonKey:Kfirst};
+        }
+        else {
+            dict = @{KchangeReasonKey:Kadded};
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:WBNetworkStore.changedNotification object:item userInfo:dict];
+    }];
 
     [dataTask resume];
 }
+
+
 
 @end

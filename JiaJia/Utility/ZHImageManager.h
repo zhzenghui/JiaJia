@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ZHImageManager : NSObject
 
++ (instancetype)sharedManager;
+
 @property (nullable, nonatomic, strong) YYImageCache *cache;
 
 @property (nullable, nonatomic, strong) NSOperationQueue *queue;
@@ -43,7 +45,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nullable, nonatomic, copy) NSDictionary<NSString *, NSString *> *headers;
 
-
+/**
+ Creates a manager with an image cache and operation queue.
+ 
+ @param cache  Image cache used by manager (pass nil to avoid image cache).
+ @param queue  The operation queue on which image operations are scheduled and run
+                (pass nil to make the new operation start immediately without queue).
+ @return A new manager.
+ */
+- (instancetype)initWithCache:(nullable YYImageCache *)cache
+                        queue:(nullable NSOperationQueue *)queue NS_DESIGNATED_INITIALIZER;
 /**
  A block which will be invoked for each image operation. Default is nil.
  
@@ -51,6 +62,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nullable, nonatomic, copy) NSString *(^cacheKeyFilter)(NSURL *url);
 
+- (void)setImageWithURL:(NSURL *)imageURL
+                options:(YYWebImageOptions)options
+               progress:(YYWebImageProgressBlock)progress
+              transform:(YYWebImageTransformBlock)transform
+             completion:(YYWebImageCompletionBlock)completion;
 @end
 
 NS_ASSUME_NONNULL_END
