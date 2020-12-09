@@ -39,6 +39,7 @@
 		AE852AF72578A7A000C253E9 /* T1Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = AE852AF22578A7A000C253E9 /* T1Helper.m */; };
 		AE852B002578A7F600C253E9 /* YYFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AE852AFF2578A7F600C253E9 /* YYFPSLabel.m */; };
 		AE852B052578A81600C253E9 /* YYSimpleWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE852B042578A81600C253E9 /* YYSimpleWebViewController.m */; };
+		AE852B0C2578B13A00C253E9 /* T1NetworkStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AE852B0B2578B13A00C253E9 /* T1NetworkStore.m */; };
 		AE90F0342570DB42002327E8 /* Weibo.m in Sources */ = {isa = PBXBuildFile; fileRef = AE90F0332570DB42002327E8 /* Weibo.m */; };
 		AE90F03B2570DBD7002327E8 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = AE90F03A2570DBD7002327E8 /* User.m */; };
 		AE966A0C257794BC00BF6E8A /* ZHWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE966A0B257794BC00BF6E8A /* ZHWebViewController.m */; };
@@ -118,6 +119,8 @@
 		AE852AFF2578A7F600C253E9 /* YYFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYFPSLabel.m; sourceTree = "<group>"; };
 		AE852B032578A81600C253E9 /* YYSimpleWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYSimpleWebViewController.h; sourceTree = "<group>"; };
 		AE852B042578A81600C253E9 /* YYSimpleWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYSimpleWebViewController.m; sourceTree = "<group>"; };
+		AE852B0A2578B13A00C253E9 /* T1NetworkStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = T1NetworkStore.h; sourceTree = "<group>"; };
+		AE852B0B2578B13A00C253E9 /* T1NetworkStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = T1NetworkStore.m; sourceTree = "<group>"; };
 		AE90F0322570DB42002327E8 /* Weibo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Weibo.h; sourceTree = "<group>"; };
 		AE90F0332570DB42002327E8 /* Weibo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Weibo.m; sourceTree = "<group>"; };
 		AE90F0392570DBD7002327E8 /* User.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
@@ -191,8 +194,6 @@
 			children = (
 				AE8529EA2578A6E100C253E9 /* Other */,
 				AE8529E32578A6A400C253E9 /* Utility */,
-				AE5E82DF25713B51008CDEFF /* New Group */,
-				AE966A13257798B000BF6E8A /* WebView */,
 				AE8529DE2578A64300C253E9 /* Weibo */,
 				AE852AE82578A78C00C253E9 /* Twitter */,
 				AE43DA63257014CC00516F7E /* JiaJia.entitlements */,
@@ -219,7 +220,7 @@
 			path = JiaJiaUITests;
 			sourceTree = "<group>";
 		};
-		AE5E82DF25713B51008CDEFF /* New Group */ = {
+		AE5E82DF25713B51008CDEFF /* ZModel */ = {
 			isa = PBXGroup;
 			children = (
 				AE5E82E025713B84008CDEFF /* NSObject+ZModel.h */,
@@ -227,7 +228,7 @@
 				AE5E82E725713C39008CDEFF /* YYClassInfo.h */,
 				AE5E82E825713C39008CDEFF /* YYClassInfo.m */,
 			);
-			path = "New Group";
+			path = ZModel;
 			sourceTree = "<group>";
 		};
 		AE6104392573B75700BBDCA7 /* View */ = {
@@ -259,6 +260,8 @@
 		AE8529DE2578A64300C253E9 /* Weibo */ = {
 			isa = PBXGroup;
 			children = (
+				AE6105422573B96D00BBDCA7 /* WBStatusHelper.h */,
+				AE6105432573B96D00BBDCA7 /* WBStatusHelper.m */,
 				AE90F0322570DB42002327E8 /* Weibo.h */,
 				AE90F0332570DB42002327E8 /* Weibo.m */,
 				AE8529DB2578A5D000C253E9 /* ViewController */,
@@ -271,6 +274,8 @@
 		AE8529E32578A6A400C253E9 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				AE5E82DF25713B51008CDEFF /* ZModel */,
+				AE966A13257798B000BF6E8A /* WebView */,
 				AE5F3EFA2574EC28006DA2E7 /* PhotoLibraryHelper.h */,
 				AE5F3EFB2574EC28006DA2E7 /* PhotoLibraryHelper.m */,
 				AE5F3F0C25753D96006DA2E7 /* ZHImageManager.h */,
@@ -301,23 +306,39 @@
 			children = (
 				AE852AF12578A7A000C253E9 /* T1Helper.h */,
 				AE852AF22578A7A000C253E9 /* T1Helper.m */,
+				AE852B092578B04E00C253E9 /* View */,
+				AE852B082578B04500C253E9 /* Model */,
 				AE852AEB2578A79F00C253E9 /* T1HomeTimelineItemsViewController.h */,
 				AE852AEF2578A7A000C253E9 /* T1HomeTimelineItemsViewController.m */,
+			);
+			path = Twitter;
+			sourceTree = "<group>";
+		};
+		AE852B082578B04500C253E9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AE852B0A2578B13A00C253E9 /* T1NetworkStore.h */,
+				AE852B0B2578B13A00C253E9 /* T1NetworkStore.m */,
 				AE852AF02578A7A000C253E9 /* T1Model.h */,
 				AE852AEE2578A7A000C253E9 /* T1Model.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		AE852B092578B04E00C253E9 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				AE852AEA2578A79F00C253E9 /* T1StatusCell.h */,
 				AE852AED2578A7A000C253E9 /* T1StatusCell.m */,
 				AE852AEC2578A79F00C253E9 /* T1StatusLayout.h */,
 				AE852AE92578A79F00C253E9 /* T1StatusLayout.m */,
 			);
-			path = Twitter;
+			path = View;
 			sourceTree = "<group>";
 		};
 		AE90F03E2570DBEF002327E8 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AE6105422573B96D00BBDCA7 /* WBStatusHelper.h */,
-				AE6105432573B96D00BBDCA7 /* WBStatusHelper.m */,
 				AE90F0392570DBD7002327E8 /* User.h */,
 				AE90F03A2570DBD7002327E8 /* User.m */,
 				AE5E83002571564D008CDEFF /* WBStatus.h */,
@@ -529,6 +550,7 @@
 				AE5F3F0E25753D96006DA2E7 /* ZHImageManager.m in Sources */,
 				AE852AF72578A7A000C253E9 /* T1Helper.m in Sources */,
 				AE6104402573B76A00BBDCA7 /* WBStatusLayout.m in Sources */,
+				AE852B0C2578B13A00C253E9 /* T1NetworkStore.m in Sources */,
 				AE966A0C257794BC00BF6E8A /* ZHWebViewController.m in Sources */,
 				AE1B5557257012CD00D704A6 /* main.m in Sources */,
 				AE5F3EFC2574EC28006DA2E7 /* PhotoLibraryHelper.m in Sources */,

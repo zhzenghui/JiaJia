@@ -54,11 +54,11 @@
     
 //    ZHWebViewController *vc2 = [[ZHWebViewController alloc] init];
 //    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:vc2];
-    T1HomeTimelineItemsViewController *vc2 = [[T1HomeTimelineItemsViewController alloc] init];
-    vc2.title = @"twitter";
-    vc2.tabBarItem.title = @"twitter";
-    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:vc2];
-    tab.viewControllers = @[nav2, nav, nav1 ];
+//    T1HomeTimelineItemsViewController *vc2 = [[T1HomeTimelineItemsViewController alloc] init];
+//    vc2.title = @"twitter";
+//    vc2.tabBarItem.title = @"twitter";
+//    UINavigationController *nav2 = [[UINavigationController alloc] initWithRootViewController:vc2];
+    tab.viewControllers = @[ nav, nav1 ];
     
     self.window.rootViewController = tab;
     [self.window makeKeyAndVisible];

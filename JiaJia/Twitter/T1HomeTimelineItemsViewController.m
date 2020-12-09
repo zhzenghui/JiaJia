@@ -14,6 +14,8 @@
 #import "YYPhotoGroupView.h"
 #import "YYSimpleWebViewController.h"
 
+#import "T1NetworkStore.h"
+
 @interface T1HomeTimelineItemsViewController() <UITableViewDelegate, UITableViewDataSource, T1StatusCellDelegate>
 @property (nonatomic, strong) NSMutableArray *layouts;
 @property (nonatomic, strong) UITableView *tableView;
@@ -33,6 +35,8 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.view.backgroundColor = [UIColor whiteColor];
+    [T1NetworkStore.shareInstance getHome:@"0" maxID:@"0"];
+
 }
 
 - (void)viewDidLoad {
