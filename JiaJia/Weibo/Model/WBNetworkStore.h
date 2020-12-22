@@ -14,6 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface WBNetworkStore : NSObject
 
 @property (strong, nonatomic) WBTimelineItem *timeLineItem;
+@property (nonatomic, strong) NSURLRequest *pps_request;
 
 + (NSString *)changedNotification;
 

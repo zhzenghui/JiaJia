@@ -54,7 +54,7 @@ static NSString *weiboKey = @"weibo_key";
     self.user.name = dict[@"app"];
     self.user.accessToken = dict[@"access_token"];
     self.user.refreshToken = dict[@"refresh_token"];
-    self.user.accessToken = @"2.00KuUszBTLokcEf5b59341f00WPiVG";
+//    self.user.accessToken = @"2.00KuUszBTLokcEf5b59341f00WPiVG";
     NSLog(@"set user success token %@", self.user.accessToken);
 
 }

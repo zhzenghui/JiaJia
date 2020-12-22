@@ -120,7 +120,12 @@ static NSString *weiboKey = @"weibo_key";
         for (WBStatus *status in item.statuses) {
             NSLog(@"%@", status.idstr);
             NSLog(@"%@", status.pics);
+            
         }
+        
+        
+    https://video.weibo.com/media/play?livephoto=https%3A%2F%2Fus.sinaimg.cn%2F001ydHXZgx07IAVkwour0f0f01003iCL0k01.mov
+
         self.timeLineItem = item;
         NSDictionary *dict = @{};
         if ([maxID isEqualToString:@"0"]) {

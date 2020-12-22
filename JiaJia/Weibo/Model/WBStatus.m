@@ -252,13 +252,24 @@
 + (NSDictionary *)modelContainerPropertyGenericClass {
     return @{@"picIds" : [NSString class],
              @"urlStruct" : [WBURL class],
+             @"picInfos" : [NSDictionary class],
              @"pics" : [WBPictureUrl class],
              @"topicStruct" : [WBTopic class],
              @"tagStruct" : [WBTag class]};
 }
 - (BOOL)modelCustomTransformFromDictionary:(NSDictionary *)dic {
     // 自动 model-mapper 不能完成的，这里可以进行额外处理
-
+//    _pics = nil;
+//    if (_picIds.count != 0) {
+//        NSMutableArray *pics = [NSMutableArray new];
+//        for (NSString *picId in _picIds) {
+//            WBPicture *pic = _picInfos[picId];
+//            if (pic) {
+//                [pics addObject:pic];
+//            }
+//        }
+//        _pics = pics;
+//    }
     if (_retweetedStatus) {
         if (_retweetedStatus.urlStruct.count == 0) {
             _retweetedStatus.urlStruct = _urlStruct;

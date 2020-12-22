@@ -82,21 +82,21 @@ static PhotoLibraryHelper *obj = nil;
                 }
             }];
             
-            
-            if (assetCollection == nil) {
-                NSLog(@"创建相册失败");
-            }
-            if (assetCollection != nil) {
-                [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
-                    PHAssetCollectionChangeRequest *requtes = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:assetCollection];
-                    [requtes addAssets:@[placeholder]];
-                } error:&error];
-                if (error) {
-                    NSLog(@"保存相册失败");
-                } else {
-                    NSLog(@"保存相册成功");
-                }
-            }
+//
+//            if (assetCollection == nil) {
+//                NSLog(@"创建相册失败");
+//            }
+//            if (assetCollection != nil) {
+//                [[PHPhotoLibrary sharedPhotoLibrary] performChangesAndWait:^{
+//                    PHAssetCollectionChangeRequest *requtes = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:assetCollection];
+//                    [requtes addAssets:@[placeholder]];
+//                } error:&error];
+//                if (error) {
+//                    NSLog(@"保存相册失败");
+//                } else {
+//                    NSLog(@"保存相册成功");
+//                }
+//            }
 
         }
         
