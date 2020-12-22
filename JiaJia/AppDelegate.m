@@ -13,6 +13,7 @@
 #import "Weibo.h"
 #import "ZHWebViewController.h"
 #import "T1HomeTimelineItemsViewController.h"
+#import "PPSURLProtocol.h"
 
 @interface AppDelegate ()
 @property (strong, nonatomic) id viewController;
@@ -24,6 +25,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+//    [PPSURLProtocol start];
+
     [WeiboSDK enableDebugMode:true];
     [WeiboSDK registerApp:@"4237188095" universalLink:@"https://www.yuenvshen.com/"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
