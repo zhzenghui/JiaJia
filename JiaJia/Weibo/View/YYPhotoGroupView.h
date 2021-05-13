@@ -6,13 +6,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Asset.h"
+#import <Photos/Photos.h>
 
+typedef enum : NSUInteger {
+    AssetTypePath = 0,
+    AssetTypeHTTP,
+    AssetTypePHAsset,
+} AssetType;
 
 /// Single picture's info.
 @interface YYPhotoGroupItem : NSObject
 @property (nonatomic, strong) UIView *thumbView; ///< thumb image, used for animation position calculation
 @property (nonatomic, assign) CGSize largeImageSize;
 @property (nonatomic, strong) NSURL *largeImageURL;
+@property (nonatomic, strong) Asset *asset;
+@property (nonatomic, strong) PHAsset *pAsset;
+@property (nonatomic, assign) AssetType assetType; ///
 @end
 
 
@@ -31,6 +41,7 @@
 
 - (void)presentFromImageView:(UIView *)fromView
                  toContainer:(UIView *)container
+                        page:(NSInteger)page
                     animated:(BOOL)animated
                   completion:(void (^)(void))completion;
 

@@ -23,6 +23,9 @@ NS_ASSUME_NONNULL_BEGIN
 /// 获取user dict 给user对象赋值
 - (void)getWeiboUser;
 
+- (void)cleanWeiboUser;
+
+
 @end
 
 NS_ASSUME_NONNULL_END

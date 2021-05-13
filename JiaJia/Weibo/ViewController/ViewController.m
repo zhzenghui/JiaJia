@@ -41,6 +41,9 @@
     [super viewDidLoad];
     [self initViews];
     
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
     self.view.backgroundColor = UIColor.whiteColor;
     CGRect r = self.view.frame;
 
@@ -329,7 +332,8 @@
     }
     
     YYPhotoGroupView *v = [[YYPhotoGroupView alloc] initWithGroupItems:items];
-    [v presentFromImageView:fromView toContainer:self.navigationController.view animated:YES completion:nil];
+//    [v presentFromImageView:fromView toContainer:self.navigationController.view animated:YES completion:nil];
+    [v presentFromImageView:fromView toContainer:self.navigationController.view page:0 animated:true completion:nil];
 }
 
 /// 点击了 Label 的链接

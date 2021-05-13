@@ -319,6 +319,7 @@
         item.thumbView = imgView;
         item.largeImageURL = pic.largest.url;
 //        item.largeImageSize = CGSizeMake(meta.width, meta.height);
+        item.assetType = AssetTypeHTTP;
         [items addObject:item];
         if (i == index) {
             fromView = imgView;
@@ -326,7 +327,7 @@
     }
     
     YYPhotoGroupView *v = [[YYPhotoGroupView alloc] initWithGroupItems:items];
-    [v presentFromImageView:fromView toContainer:self.navigationController.view animated:YES completion:nil];
+    [v presentFromImageView:fromView toContainer:self.navigationController.view page:0 animated:true completion:nil];
 }
 
 /// 点击了 Label 的链接

@@ -49,6 +49,7 @@ static NSString *weiboKey = @"weibo_key";
     self.user.accessToken = dict[@"access_token"];
     self.user.refreshToken = dict[@"refresh_token"];
 }
+
 - (void)getWeiboUser {
     NSDictionary *dict = [[NSUserDefaults standardUserDefaults] objectForKey:weiboKey];
     self.user.name = dict[@"app"];
@@ -57,6 +58,10 @@ static NSString *weiboKey = @"weibo_key";
 //    self.user.accessToken = @"2.00KuUszBTLokcEf5b59341f00WPiVG";
     NSLog(@"set user success token %@", self.user.accessToken);
 
+}
+
+- (void)cleanWeiboUser {
+    [self setWeiboUser:@{}];
 }
 
 

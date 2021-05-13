@@ -6,10 +6,24 @@
 //
 
 #import "YYPhotoGroupView.h"
-#import "YYKit.h"
-#import "YYControl.h"
+#import "UIView+YYAdd.h"
+#import "CALayer+YYAdd.h"
+#import "UIDevice+YYAdd.h"
+#import "YYCGUtilities.h"
+#import "NSString+YYAdd.h"
+#import "UIScrollView+YYAdd.h"
 #import "PhotoLibraryHelper.h"
 #import "ZHImageManager.h"
+#import <SDWebImage/SDWebImage.h>
+#import "YYKitMacro.h"
+#import "UIImage+YYAdd.h"
+#import <PhotosUI/PHLivePhotoView.h>
+#import <AVFoundation/AVFoundation.h>
+#import "ImageHelper.h"
+#import <AFNetworking/AFNetworking.h>
+
+#import "PlayerView.h"
+#import "MYScrollView.h"
 
 #define kPadding 20
 #define kHiColor [UIColor colorWithRGBHex:0x2dd6b8]
@@ -18,6 +32,7 @@
 @interface YYPhotoGroupItem()<NSCopying>
 @property (nonatomic, readonly) UIImage *thumbImage;
 @property (nonatomic, readonly) BOOL thumbClippedToTop;
+
 - (BOOL)shouldClipToTop:(CGSize)imageSize forView:(UIView *)view;
 @end
 @implementation YYPhotoGroupItem
@@ -54,9 +69,10 @@
 
 @interface YYPhotoGroupCell : UIScrollView <UIScrollViewDelegate>
 @property (nonatomic, strong) UIView *imageContainerView;
-@property (nonatomic, strong) YYAnimatedImageView *imageView;
+@property (nonatomic, strong) SDAnimatedImageView *imageView;
 @property (nonatomic, assign) NSInteger page;
-
+@property (nonatomic, strong) PHLivePhotoView *livePhotoView;
+@property (nonatomic, strong) PlayerView *avPlayerView;
 @property (nonatomic, assign) BOOL showProgress;
 @property (nonatomic, assign) CGFloat progress;
 @property (nonatomic, strong) CAShapeLayer *progressLayer;
@@ -67,6 +83,7 @@
 @end
 
 @implementation YYPhotoGroupCell
+
 
 - (instancetype)init {
     self = super.init;
@@ -84,10 +101,24 @@
     _imageContainerView.clipsToBounds = YES;
     [self addSubview:_imageContainerView];
     
-    _imageView = [YYAnimatedImageView new];
+    _imageView = [SDAnimatedImageView new];
     _imageView.clipsToBounds = YES;
     _imageView.backgroundColor = [UIColor colorWithWhite:1.000 alpha:0.500];
     [_imageContainerView addSubview:_imageView];
+    
+    [PHLivePhotoView livePhotoBadgeImageWithOptions:PHLivePhotoBadgeOptionsOverContent];
+    self.livePhotoView =  [[PHLivePhotoView alloc] init];
+    self.livePhotoView.frame = self.frame;
+    [self addSubview:self.livePhotoView];
+
+    self.avPlayerView =  [[PlayerView alloc] init];
+    self.avPlayerView.frame = self.bounds;
+    [self addSubview:self.avPlayerView];
+    self.avPlayerView.hidden = true;
+
+    
+    NSError *error = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
     
     _progressLayer = [CAShapeLayer layer];
     _progressLayer.size = CGSizeMake(40, 40);
@@ -111,16 +142,119 @@
     _progressLayer.center = CGPointMake(self.width / 2, self.height / 2);
 }
 
+
+- (void)loadLivePhoto:(YYPhotoGroupItem *)item {
+    NSURL *image = item.largeImageURL;
+    NSString *path = item.largeImageURL.absoluteString;
+    NSString *ext = [path pathExtension];
+    path = [path stringByReplacingOccurrencesOfString:ext withString:@"MOV"];
+    NSURL *video = [NSURL URLWithString:path];
+//    NSString *cache = [nsca]
+    NSString *documentsDirectory = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+    documentsDirectory = [documentsDirectory stringByAppendingPathComponent:item.asset.zDirectory];
+    documentsDirectory = [documentsDirectory stringByAppendingPathComponent:item.asset.zFileName];
+
+    NSString *localImagePath = documentsDirectory;
+    NSString *localVideoPath = [documentsDirectory stringByReplacingOccurrencesOfString:ext withString:@"MOV"];;
+    NSURL *vUrl = [NSURL fileURLWithPath:localVideoPath];
+    NSURL *iUrl = [NSURL fileURLWithPath:localImagePath];
+    BOOL isLIPExist = [[NSFileManager defaultManager] fileExistsAtPath:localImagePath];
+    BOOL isLVPExist = [[NSFileManager defaultManager] fileExistsAtPath:localVideoPath];
+    if (isLIPExist == false || isLVPExist == false ) {
+        
+//        [[LocalServersManager sharedManager] downloadFileForm:image.absoluteString
+//                                                   toPath:localImagePath
+//                                        completionHandler:^(BOOL success, NSError * _Nullable error) {
+//            if (success) {
+//                
+//                [[LocalServersManager sharedManager] downloadFileForm:video.absoluteString toPath:localVideoPath completionHandler:^(BOOL success, NSError * _Nullable error) {
+//                    if (success) {
+//
+//                        NSArray *urls = @[vUrl, iUrl];
+//                        [PHLivePhoto requestLivePhotoWithResourceFileURLs:urls placeholderImage:item.thumbImage targetSize:item.thumbImage.size contentMode:PHImageContentModeDefault resultHandler:^(PHLivePhoto * _Nullable livePhoto, NSDictionary * _Nonnull info) {
+//                
+//                            if (livePhoto != nil) {
+//                                int heith = (item.asset.zHeight * self.width)/item.asset.zWidth;
+//                                self.livePhotoView.frame = CGRectMake(0, (self.height-heith)/2, self.width, heith);
+//                                self.livePhotoView.livePhoto = livePhoto;
+//                                self.livePhotoView.muted = false;
+////                                [self.livePhotoView startPlaybackWithStyle:PHLivePhotoViewPlaybackStyleFull];
+//                                printf("livePhoto 创建成功 \n");
+//                            }
+//                            else {
+//                                printf("livePhoto 创建失败");
+//                            }
+//                
+//                        }];
+//                    }
+//                }];
+//            }
+//        }];
+    }
+    else {
+        NSArray *urls = @[vUrl, iUrl];
+        [PHLivePhoto requestLivePhotoWithResourceFileURLs:urls placeholderImage:item.thumbImage targetSize:item.thumbImage.size contentMode:PHImageContentModeDefault resultHandler:^(PHLivePhoto * _Nullable livePhoto, NSDictionary * _Nonnull info) {
+
+            if (livePhoto != nil) {
+                int heith = (item.asset.zHeight * self.width)/item.asset.zWidth;
+                self.livePhotoView.frame = CGRectMake(0, (self.height-heith)/2, self.width, heith);
+
+                self.livePhotoView.livePhoto = livePhoto;
+                self.livePhotoView.muted = false;
+//                [self.livePhotoView startPlaybackWithStyle:PHLivePhotoViewPlaybackStyleFull];
+                printf("livePhoto 创建成功 \n");
+            }
+            else {
+                printf("livePhoto 创建失败");
+            }
+
+        }];
+    }
+
+
+
+}
+
+- (void)play {
+    if (_item.asset.zDURATION != 0) {
+        [self.avPlayerView play];
+    }
+    else if (_item.asset.zKINDSUBTYPE == 2 || _item.asset.zKINDSUBTYPE  == PHAssetMediaSubtypePhotoLive || _item.pAsset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
+        NSLog(@"%@", _item.largeImageURL.absoluteString);
+        [self.livePhotoView startPlaybackWithStyle:PHLivePhotoViewPlaybackStyleFull];
+    }
+    else if (_item.pAsset.playbackStyle == PHAssetPlaybackStyleImageAnimated) {
+        [self.imageView.player startPlaying];
+    }
+    else if (_item.pAsset.mediaType == PHAssetMediaTypeVideo) {
+        [self.avPlayerView play];
+    }
+}
+
+- (void)pause {
+    if (self.item) {
+//    if (_item.asset.zDURATION != 0) {
+        [self.avPlayerView pause];
+//    }
+//    else if (_item.asset.zKINDSUBTYPE == 2 || _item.asset.zKINDSUBTYPE  == PHAssetMediaSubtypePhotoLive || _item.pAsset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
+        [self.livePhotoView stopPlayback];
+//    }
+//    else if (_item.pAsset.playbackStyle == PHAssetPlaybackStyleImageAnimated) {
+        [self.imageView.player stopPlaying];
+//    }
+    }
+
+}
 - (void)setItem:(YYPhotoGroupItem *)item {
     if (_item == item) return;
     _item = item;
     _itemDidLoad = NO;
-    
-    
+    self.livePhotoView.hidden = true;
+    self.avPlayerView.hidden = true;
+    self.imageView.hidden = false;
     [self setZoomScale:1.0 animated:NO];
     self.maximumZoomScale = 1;
-    
-    [_imageView cancelCurrentImageRequest];
+    [_imageView sd_cancelCurrentImageLoad];
     [_imageView.layer removePreviousFadeAnimation];
     
     _progressLayer.hidden = NO;
@@ -135,31 +269,245 @@
         return;
     }
     @weakify(self);
-    [_imageView setImageWithURL:item.largeImageURL placeholder:item.thumbImage options:kNilOptions progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-        @strongify(self);
-        if (!self) return;
-        CGFloat progress = receivedSize / (float)expectedSize;
-        progress = progress < 0.01 ? 0.01 : progress > 1 ? 1 : progress;
-        if (isnan(progress)) progress = 0;
-        self.progressLayer.hidden = NO;
-        self.progressLayer.strokeEnd = progress;
-    } transform:nil completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
-        @strongify(self);
-        if (!self) return;
-        self.progressLayer.hidden = YES;
-        if (stage == YYWebImageStageFinished) {
-            self.maximumZoomScale = 3;
-            if (image) {
+
+    if (item.assetType == AssetTypeHTTP) {
+        
+        if (item.asset.zDURATION != 0) {
+            self.avPlayerView.hidden = false;
+//            if (self.avPlayerView.avPlayer == nil) {
+//            }
+//            if (self.avPlayerView.videoUrl == item.largeImageURL) {
+//                [self.avPlayerView.avPlayer play];
+//            }
+//            else {
+            NSLog(@"%@ ", item.largeImageURL.absoluteString);
+            [self.avPlayerView setVideoUrl:item.largeImageURL];
+//            }
+
+        }
+        else if (item.asset.zKINDSUBTYPE == 2) {
+            self.livePhotoView.hidden = false;
+            PHAsset *asset = [[PhotoLibraryHelper shareInstance]
+                              getAssets:@[item.asset.zUUID]].firstObject;
+            int heith = (asset.pixelHeight * self.width)/asset.pixelWidth;
+
+            [[PHImageManager defaultManager] requestLivePhotoForAsset:asset
+                                                           targetSize:CGSizeMake(self.width, heith) contentMode:PHImageContentModeAspectFill
+                                                              options:nil resultHandler:^(PHLivePhoto * _Nullable livePhoto, NSDictionary * _Nullable info) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+
+                    if (livePhoto != nil) {
+                        self.livePhotoView.frame = CGRectMake(0, (self.height-heith)/2, self.width, heith);
+                        self.livePhotoView.livePhoto = livePhoto;
+                        self.livePhotoView.muted = false;
+                        [self.livePhotoView startPlaybackWithStyle:PHLivePhotoViewPlaybackStyleFull];
+                    }
+                    else {
+                        printf("livePhoto 创建失败");
+                        [self loadLivePhoto:item];
+                    }
+                });
+
+            }];
+            self.imageView.hidden = true;
+
+
+        }
+        else {
+            
+            NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+            AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+
+            NSURLRequest *request = [NSURLRequest requestWithURL:item.largeImageURL];
+
+            NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+                NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+                return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+            } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+                NSString *tagter = [filePath.absoluteString
+                                    stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+                UIImage *image = [[UIImage alloc] initWithContentsOfFile:tagter];
+                ImageHelper *ih = [[ImageHelper alloc] init];
+                [ih readData:image];
+                if (image) {
+                    NSLog(@"ImageHelper to: success");
+                    self.imageView.image = [ih readRect:image row:ih.row+1 rect:ih.rect];
+                }
+                else {
+                    NSLog(@"ImageHelper to: faild %@", filePath);
+
+                }
                 
-                NSLog(@"load image success");
-                self->_itemDidLoad = YES;
-                [self resizeSubviewSize];
-                [self.imageView.layer addFadeAnimationWithDuration:0.1 curve:UIViewAnimationCurveLinear];
-            }
+                
+
+                
+            }];
+            [downloadTask resume];
+//
+//
+//            [_imageView sd_setImageWithURL:item.largeImageURL
+//                          placeholderImage:item.thumbImage
+//                                   options:0
+//                                  progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL)
+//            {
+//                @strongify(self);
+//                if (!self) return;
+//                CGFloat progress = receivedSize / (float)expectedSize;
+//                progress = progress < 0.01 ? 0.01 : progress > 1 ? 1 : progress;
+//                if (isnan(progress)) progress = 0;
+//                self.progressLayer.hidden = NO;
+//                self.progressLayer.strokeEnd = progress;
+//
+//            } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+//                @strongify(self);
+//                if (!self) return;
+//                self.progressLayer.hidden = YES;
+//                if (!error) {
+//                    self.maximumZoomScale = 3;
+//                    if (image) {
+//                        ImageHelper *ih = [[ImageHelper alloc] init];
+//                        [ih readData:image];
+//
+//                        self.imageView.image = [ih readRect:image row:ih.row+1 rect:ih.rect];
+//
+//                        NSLog(@"load image success");
+//                        self->_itemDidLoad = YES;
+//                        [self resizeSubviewSize];
+//                        [self.imageView.layer addFadeAnimationWithDuration:0.1 curve:UIViewAnimationCurveLinear];
+//                    }
+//                }
+//            }];
+        }
+    }
+    else if (item.assetType == AssetTypePath) {
+        if (item.asset.zDURATION != 0) {
+            self.avPlayerView.hidden = false;
+            NSLog(@"%@ ", item.largeImageURL.absoluteString);
+            [self.avPlayerView setVideoUrl:item.largeImageURL];
+
+        }
+        else if (item.asset.zKINDSUBTYPE == PHAssetMediaSubtypePhotoLive) {
+            self.livePhotoView.hidden = false;
+            [self loadLivePhoto:item];
+            self.imageView.hidden = true;
+        }
+        else {
+            
+            [_imageView sd_setImageWithURL:item.largeImageURL
+                          placeholderImage:item.thumbImage
+                                   options:0
+                                  progress:^(NSInteger receivedSize, NSInteger expectedSize, NSURL * _Nullable targetURL)
+            {
+                @strongify(self);
+                if (!self) return;
+                CGFloat progress = receivedSize / (float)expectedSize;
+                progress = progress < 0.01 ? 0.01 : progress > 1 ? 1 : progress;
+                if (isnan(progress)) progress = 0;
+                self.progressLayer.hidden = NO;
+                self.progressLayer.strokeEnd = progress;
+
+            } completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+                @strongify(self);
+                if (!self) return;
+                self.progressLayer.hidden = YES;
+                if (!error) {
+                    self.maximumZoomScale = 3;
+                    if (image) {
+
+                        NSLog(@"load image success");
+                        self->_itemDidLoad = YES;
+                        [self resizeSubviewSize];
+                        [self.imageView.layer addFadeAnimationWithDuration:0.1 curve:UIViewAnimationCurveLinear];
+                    }
+                }
+            }];
+        }
+    }
+    else {
+        PHAsset *asset = self.item.pAsset;
+        
+        if (asset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
+            int heith = (asset.pixelHeight * self.width)/asset.pixelWidth;
+            self.livePhotoView.hidden = false;
+
+            [[PHImageManager defaultManager] requestLivePhotoForAsset:asset targetSize:CGSizeMake(asset.pixelWidth, asset.pixelHeight) contentMode:PHImageContentModeDefault options:nil resultHandler:^(PHLivePhoto * _Nullable livePhoto, NSDictionary * _Nullable info) {
+//                if (self.livePhotoView.livePhoto) {
+//                    [self.livePhotoView stopPlayback];
+//                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.livePhotoView.frame = CGRectMake(0, (self.height-heith)/2, self.width, heith);
+                    self.livePhotoView.livePhoto = livePhoto;
+                    self.livePhotoView.muted = false;
+//                    [self.livePhotoView startPlaybackWithStyle:PHLivePhotoViewPlaybackStyleHint];
+                });
+
+
+            }];
+        }
+//
+        else if (asset.playbackStyle == PHAssetPlaybackStyleImageAnimated) {
+            [[PHImageManager defaultManager] requestImageDataForAsset:asset options:nil resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+                SDAnimatedImage *image = [SDAnimatedImage imageWithData: imageData];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    self.imageView.image = image;
+                    [self.imageView.player startPlaying];
+                    
+                    [self resizeSubviewSize];
+                });
+
+            }];
+             
+//             :asset targetSize: CGSizeMake(asset.pixelWidth, asset.pixelHeight) contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+//                dispatch_async(dispatch_get_main_queue(), ^{
+//                    self.imageView.image = result;
+//                    [self resizeSubviewSize];
+//                });
+//            }];
+        }
+        else if (asset.mediaType == PHAssetMediaTypeImage) {
+            [[PHImageManager defaultManager] requestImageForAsset:asset targetSize: CGSizeMake(asset.pixelWidth, asset.pixelHeight) contentMode:PHImageContentModeDefault options:nil resultHandler:^(UIImage * _Nullable result, NSDictionary * _Nullable info) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.imageView.image = result;
+                    [self resizeSubviewSize];
+                });
+            }];
+        }
+        else if (asset.mediaType == PHAssetMediaTypeVideo) {
+            [[PHImageManager defaultManager] requestPlayerItemForVideo:asset options:nil resultHandler:^(AVPlayerItem * _Nullable playerItem, NSDictionary * _Nullable info) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.avPlayerView.hidden = false;
+                    [self.avPlayerView setPlayerItem:playerItem];
+                });
+            }];
         }
 
-    }];
-//    [self resizeSubviewSize];
+    }
+//    [_imageView setImageWithURL:item.largeImageURL placeholder:item.thumbImage options:kNilOptions progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//        @strongify(self);
+//        if (!self) return;
+//        CGFloat progress = receivedSize / (float)expectedSize;
+//        progress = progress < 0.01 ? 0.01 : progress > 1 ? 1 : progress;
+//        if (isnan(progress)) progress = 0;
+//        self.progressLayer.hidden = NO;
+//        self.progressLayer.strokeEnd = progress;
+//    } transform:nil completion:^(UIImage *image, NSURL *url, YYWebImageFromType from, YYWebImageStage stage, NSError *error) {
+//        @strongify(self);
+//        if (!self) return;
+//        self.progressLayer.hidden = YES;
+//        if (stage == YYWebImageStageFinished) {
+//            self.maximumZoomScale = 3;
+//            if (image) {
+//
+//                NSLog(@"load image success");
+//                self->_itemDidLoad = YES;
+//                [self resizeSubviewSize];
+//                [self.imageView.layer addFadeAnimationWithDuration:0.1 curve:UIViewAnimationCurveLinear];
+//            }
+//        }
+//
+//    }];
+
 }
 
 - (void)resizeSubviewSize {
@@ -191,6 +539,7 @@
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
     _imageView.frame = _imageContainerView.bounds;
+    _livePhotoView.frame = _imageContainerView.bounds;
     [CATransaction commit];
 }
 
@@ -209,6 +558,11 @@
     
     subView.center = CGPointMake(scrollView.contentSize.width * 0.5 + offsetX,
                                  scrollView.contentSize.height * 0.5 + offsetY);
+}
+
+-(void)cleanPlay {
+    [self.avPlayerView cleanPlay];
+    [self.livePhotoView stopPlayback];
 }
 
 @end
@@ -236,8 +590,12 @@
 @property (nonatomic, strong) UIImageView *background;
 @property (nonatomic, strong) UIImageView *blurBackground;
 
+@property (nonatomic, strong) UILabel *numberLabel;
+
+@property (nonatomic, strong) YYPhotoGroupCell *currentCell;
+
 @property (nonatomic, strong) UIView *contentView;
-@property (nonatomic, strong) UIScrollView *scrollView;
+@property (nonatomic, strong) MYScrollView *scrollView;
 @property (nonatomic, strong) NSMutableArray *cells;
 @property (nonatomic, strong) UIPageControl *pager;
 @property (nonatomic, assign) CGFloat pagerCurrentPage;
@@ -308,9 +666,9 @@
     [tap requireGestureRecognizerToFail: tap2];
     [self addGestureRecognizer:tap2];
     
-    UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress)];
-    press.delegate = self;
-    [self addGestureRecognizer:press];
+//    UILongPressGestureRecognizer *press = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPress)];
+//    press.delegate = self;
+//    [self addGestureRecognizer:press];
     
     if (kSystemVersion >= 7) {
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(pan:)];
@@ -333,7 +691,7 @@
     _contentView.frame = self.bounds;
     _contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     
-    _scrollView = UIScrollView.new;
+    _scrollView = MYScrollView.new;
     _scrollView.frame = CGRectMake(-kPadding / 2, 0, self.width + kPadding, self.height);
     _scrollView.delegate = self;
     _scrollView.scrollsToTop = NO;
@@ -344,14 +702,20 @@
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _scrollView.delaysContentTouches = NO;
     _scrollView.canCancelContentTouches = YES;
-    
-    _saveAllView = UIView.new;
-    _saveAllView.backgroundColor = UIColor.blackColor;
-    _saveAllView.frame = CGRectMake(kPadding, kScreenHeight - 150, 50, 50);
-    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(saveAll)];
-    tap1.delegate = self;
-    [_saveAllView addGestureRecognizer:tap1];
+    UIWindow *window = UIApplication.sharedApplication.windows.firstObject;
+    CGFloat topPadding = window.safeAreaInsets.top;
+//    CGFloat bottomPadding = window.safeAreaInsets.bottom;
+//    _saveAllView = UIView.new;
+//    _saveAllView.backgroundColor = UIColor.blackColor;
+//    _saveAllView.frame = CGRectMake(kPadding, kScreenHeight - 150, 50, 50);
+//    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(saveAll)];
+//    tap1.delegate = self;
+//    [_saveAllView addGestureRecognizer:tap1];
+    _numberLabel = [UILabel new];
+    _numberLabel.frame = CGRectMake(0, topPadding, self.width, 20);
+    _numberLabel.textAlignment = NSTextAlignmentCenter;
 
+    
     _pager = [[UIPageControl alloc] init];
     _pager.hidesForSinglePage = YES;
     _pager.userInteractionEnabled = NO;
@@ -363,30 +727,25 @@
     [self addSubview:_background];
     [self addSubview:_blurBackground];
     [self addSubview:_contentView];
-    [self addSubview:_saveAllView];
+//    [self addSubview:_saveAllView];
     [_contentView addSubview:_scrollView];
     [_contentView addSubview:_pager];
-    
+    [_contentView addSubview:_numberLabel];
     return self;
 }
 
 
 - (void)presentFromImageView:(UIView *)fromView
                  toContainer:(UIView *)toContainer
+                        page:(NSInteger)page
                     animated:(BOOL)animated
                   completion:(void (^)(void))completion {
     if (!toContainer) return;
     
     _fromView = fromView;
     _toContainerView = toContainer;
-    
-    NSInteger page = -1;
-    for (NSUInteger i = 0; i < self.groupItems.count; i++) {
-        if (fromView == ((YYPhotoGroupItem *)self.groupItems[i]).thumbView) {
-            page = (int)i;
-            break;
-        }
-    }
+    _numberLabel.text = [NSString stringWithFormat:@"%ld/%ld",  (long)page+1, (long)self.groupItems.count];
+
     if (page == -1) page = 0;
     _fromItemIndex = page;
     
@@ -417,14 +776,14 @@
     [UIView setAnimationsEnabled:YES];
     _fromNavigationBarHidden = [UIApplication sharedApplication].statusBarHidden;
     [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:animated ? UIStatusBarAnimationFade : UIStatusBarAnimationNone];
-    
-    
+    [[[UIApplication sharedApplication] keyWindow] rootViewController].tabBarController.tabBar.hidden = true;
     YYPhotoGroupCell *cell = [self cellForPage:self.currentPage];
     YYPhotoGroupItem *item = _groupItems[self.currentPage];
-    
+    self.currentCell = cell;
     if (!item.thumbClippedToTop) {
-        NSString *imageKey = [[YYWebImageManager sharedManager] cacheKeyForURL:item.largeImageURL];
-        if ([[YYWebImageManager sharedManager].cache getImageForKey:imageKey withType:YYImageCacheTypeMemory]) {
+        NSString *imageKey = [[SDImageCache sharedImageCache]
+                              cachePathForKey:item.largeImageURL.absoluteString];//cacheKeyForURL:item.largeImageURL];
+        if ([[SDImageCache sharedImageCache] imageFromCacheForKey:imageKey]) {
             cell.item = item;
         }
     }
@@ -495,7 +854,8 @@
 
 - (void)dismissAnimated:(BOOL)animated completion:(void (^)(void))completion {
     [UIView setAnimationsEnabled:YES];
-    
+
+    [[[UIApplication sharedApplication] keyWindow] rootViewController].tabBarController.tabBar.hidden = false;
     [[UIApplication sharedApplication] setStatusBarHidden:_fromNavigationBarHidden withAnimation:animated ? UIStatusBarAnimationFade : UIStatusBarAnimationNone];
     NSInteger currentPage = self.currentPage;
     YYPhotoGroupCell *cell = [self cellForPage:currentPage];
@@ -588,6 +948,17 @@
 }
 
 
+- (void)cleanCells {
+    for (YYPhotoGroupCell *cell in self.cells) {
+        [cell cleanPlay];
+    }
+}
+
+- (void)pauseCells {
+    for (YYPhotoGroupCell *cell in self.cells) {
+        [cell pause];
+    }
+}
 
 
 - (void)saveAll {
@@ -601,55 +972,55 @@
     NSLog(@"所有图片：%i", (int)items.count);
 //    __block int successCount = 0;
 //    __block int faildCount = 0;
-    for (YYPhotoGroupItem *item in items) {
-        NSLog(@"%@", item.largeImageURL);
-        [manager setImageWithURL:item.largeImageURL options:kNilOptions progress:^(NSInteger receivedSize, NSInteger expectedSize) {
-            
-        }transform:nil completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
-            if (stage == YYWebImageStageFinished) {
-//                [array addObject:image];
-                NSLog(@"completion%@", [NSThread currentThread]);
-                NSData *data = [self dataRepresentationForSystem:(YYImage *)image];
-                [[PhotoLibraryHelper shareInstance] saveImages:@[data]];
-
-            }
-        }];
-    }
+//    for (YYPhotoGroupItem *item in items) {
+//        NSLog(@"%@", item.largeImageURL);
+//        [manager setImageWithURL:item.largeImageURL options:kNilOptions progress:^(NSInteger receivedSize, NSInteger expectedSize) {
+//
+//        }transform:nil completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
+//            if (stage == YYWebImageStageFinished) {
+////                [array addObject:image];
+//                NSLog(@"completion%@", [NSThread currentThread]);
+//                NSData *data = [self dataRepresentationForSystem:(YYImage *)image];
+//                [[PhotoLibraryHelper shareInstance] saveImages:@[data]];
+//
+//            }
+//        }];
+//    }
     NSLog(@"图片：%i", (int)items.count);
 
 }
 
-- (UIImage *)imageRepresentationForSystem:(YYImage *)image {
+- (UIImage *)imageRepresentationForSystem:(UIImage *)image {
     NSData *data = nil;
-    if ([image isKindOfClass:[YYImage class]]) {
+    if ([image isKindOfClass:[UIImage class]]) {
         
-        if (image.animatedImageData) {
-
-            data = image.animatedImageData;
-        }
-        else {
-            return image;
-        }
+//        if (image.animatedImageData) {
+//
+//            data = image.animatedImageData;
+//        }
+//        else {
+//            return image;
+//        }
     }
     if (!data) {
         CGImageRef imageRef = image.CGImage ? (CGImageRef)CFRetain(image.CGImage) : nil;
         if (imageRef) {
-            CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(imageRef);
-            CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef) & kCGBitmapAlphaInfoMask;
+//            CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(imageRef);
+//            CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef) & kCGBitmapAlphaInfoMask;
             BOOL hasAlpha = NO;
-            if (alphaInfo == kCGImageAlphaPremultipliedLast ||
-                alphaInfo == kCGImageAlphaPremultipliedFirst ||
-                alphaInfo == kCGImageAlphaLast ||
-                alphaInfo == kCGImageAlphaFirst) {
-                hasAlpha = YES;
-            }
-            if (image.imageOrientation != UIImageOrientationUp) {
-                CGImageRef rotated = YYCGImageCreateCopyWithOrientation(imageRef, image.imageOrientation, bitmapInfo | alphaInfo);
-                if (rotated) {
-                    CFRelease(imageRef);
-                    imageRef = rotated;
-                }
-            }
+//            if (alphaInfo == kCGImageAlphaPremultipliedLast ||
+//                alphaInfo == kCGImageAlphaPremultipliedFirst ||
+//                alphaInfo == kCGImageAlphaLast ||
+//                alphaInfo == kCGImageAlphaFirst) {
+//                hasAlpha = YES;
+//            }
+//            if (image.imageOrientation != UIImageOrientationUp) {
+//                CGImageRef rotated = YYCGImageCreateCopyWithOrientation(imageRef, image.imageOrientation, bitmapInfo | alphaInfo);
+//                if (rotated) {
+//                    CFRelease(imageRef);
+//                    imageRef = rotated;
+//                }
+//            }
             @autoreleasepool {
                 UIImage *newImage = [UIImage imageWithCGImage:imageRef];
                 if (newImage) {
@@ -668,37 +1039,37 @@
 }
 
 
-- (NSData *)dataRepresentationForSystem:(YYImage *)image {
+- (NSData *)dataRepresentationForSystem:(UIImage *)image {
     NSData *data = nil;
-    if ([image isKindOfClass:[YYImage class]]) {
+    if ([image isKindOfClass:[UIImage class]]) {
         
-        if (image.animatedImageData) {
-
-            data = image.animatedImageData;
-        }
-        else {
-            return UIImageJPEGRepresentation(image, 1);
-        }
+//        if (image.animatedImageData) {
+//
+//            data = image.animatedImageData;
+//        }
+//        else {
+//            return UIImageJPEGRepresentation(image, 1);
+//        }
     }
     if (!data) {
         CGImageRef imageRef = image.CGImage ? (CGImageRef)CFRetain(image.CGImage) : nil;
         if (imageRef) {
-            CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(imageRef);
-            CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef) & kCGBitmapAlphaInfoMask;
+//            CGBitmapInfo bitmapInfo = CGImageGetBitmapInfo(imageRef);
+//            CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef) & kCGBitmapAlphaInfoMask;
             BOOL hasAlpha = NO;
-            if (alphaInfo == kCGImageAlphaPremultipliedLast ||
-                alphaInfo == kCGImageAlphaPremultipliedFirst ||
-                alphaInfo == kCGImageAlphaLast ||
-                alphaInfo == kCGImageAlphaFirst) {
-                hasAlpha = YES;
-            }
-            if (image.imageOrientation != UIImageOrientationUp) {
-                CGImageRef rotated = YYCGImageCreateCopyWithOrientation(imageRef, image.imageOrientation, bitmapInfo | alphaInfo);
-                if (rotated) {
-                    CFRelease(imageRef);
-                    imageRef = rotated;
-                }
-            }
+//            if (alphaInfo == kCGImageAlphaPremultipliedLast ||
+//                alphaInfo == kCGImageAlphaPremultipliedFirst ||
+//                alphaInfo == kCGImageAlphaLast ||
+//                alphaInfo == kCGImageAlphaFirst) {
+//                hasAlpha = YES;
+//            }
+//            if (image.imageOrientation != UIImageOrientationUp) {
+//                CGImageRef rotated = YYCGImageCreateCopyWithOrientation(imageRef, image.imageOrientation, bitmapInfo | alphaInfo);
+//                if (rotated) {
+//                    CFRelease(imageRef);
+//                    imageRef = rotated;
+//                }
+//            }
             @autoreleasepool {
                 UIImage *newImage = [UIImage imageWithCGImage:imageRef];
                 if (newImage) {
@@ -721,27 +1092,30 @@
 
 
 - (void)dismiss {
+    [self cleanCells];
     [self dismissAnimated:YES completion:nil];
 }
 
 
 - (void)cancelAllImageLoad {
     [_cells enumerateObjectsUsingBlock:^(YYPhotoGroupCell *cell, NSUInteger idx, BOOL *stop) {
-        [cell.imageView cancelCurrentImageRequest];
+        [cell.imageView sd_cancelCurrentImageLoad];
     }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     [self updateCellsForReuse];
-    
+
     CGFloat floatPage = _scrollView.contentOffset.x / _scrollView.width;
     NSInteger page = _scrollView.contentOffset.x / _scrollView.width + 0.5;
+    [self pauseCells];
     
     for (NSInteger i = page - 1; i <= page + 1; i++) { // preload left and right cell
         if (i >= 0 && i < self.groupItems.count) {
             YYPhotoGroupCell *cell = [self cellForPage:i];
             if (!cell) {
                 YYPhotoGroupCell *cell = [self dequeueReusableCell];
+
                 cell.page = i;
                 cell.left = (self.width + kPadding) * i + kPadding / 2;
                 
@@ -760,8 +1134,12 @@
     NSInteger intPage = floatPage + 0.5;
     intPage = intPage < 0 ? 0 : intPage >= _groupItems.count ? (int)_groupItems.count - 1 : intPage;
     _pager.currentPage = intPage;
+    _numberLabel.text = [NSString stringWithFormat:@"%ld/%ld",  (long)intPage+1, (long)self.groupItems.count];
+
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut animations:^{
         self->_pager.alpha = 1;
+        
+        self.saveAllView.alpha = 1;
     }completion:^(BOOL finish) {
     }];
 }
@@ -778,10 +1156,14 @@
 
 
 - (void)hidePager {
-        [UIView animateWithDuration:0.3 delay:0.8 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
-            self->_pager.alpha = 0;
-        }completion:^(BOOL finish) {
-        }];
+    YYPhotoGroupCell *cell = [self cellForPage:self.currentPage];
+    [cell play];
+    
+    [UIView animateWithDuration:0.3 delay:0.8 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseOut animations:^{
+        self->_pager.alpha = 0;
+        self.saveAllView.alpha = 0;
+    }completion:^(BOOL finish) {
+    }];
 }
 
 /// enqueue invisible cells for reuse
@@ -795,6 +1177,7 @@
                 cell.item = nil;
             }
         }
+        [cell pause];
     }
 }
 
@@ -803,6 +1186,7 @@
     YYPhotoGroupCell *cell = nil;
     for (cell in _cells) {
         if (!cell.superview) {
+            [cell pause];
             return cell;
         }
     }
@@ -895,13 +1279,13 @@
     if (!tile.imageView.image) return;
     
     // try to save original image data if the image contains multi-frame (such as GIF/APNG)
-    id imageItem = [tile.imageView.image imageDataRepresentation];
-    YYImageType type = YYImageDetectType((__bridge CFDataRef)(imageItem));
-    if (type != YYImageTypePNG &&
-        type != YYImageTypeJPEG &&
-        type != YYImageTypeGIF) {
-        imageItem = tile.imageView.image;
-    }
+//    id imageItem = [tile.imageView.image imageDataRepresentation];
+//    YYImageType type = YYImageDetectType((__bridge CFDataRef)(imageItem));
+//    if (type != YYImageTypePNG &&
+//        type != YYImageTypeJPEG &&
+//        type != YYImageTypeGIF) {
+    id imageItem = tile.imageView.image;
+//    }
     
     UIActivityViewController *activityViewController =
     [[UIActivityViewController alloc] initWithActivityItems:@[imageItem] applicationActivities:nil];
@@ -912,6 +1296,17 @@
     UIViewController *toVC = self.toContainerView.viewController;
     if (!toVC) toVC = self.viewController;
     [toVC presentViewController:activityViewController animated:YES completion:nil];
+}
+
+#pragma mark -- UIGestureRecognizerDelegate
+//触发之后是否响应手势事件
+//处理侧滑返回与UISlider的拖动手势冲突
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch{
+    //如果手势是触摸的UISlider滑块触发的，侧滑返回手势就不响应
+    if ([touch.view isKindOfClass:[PlayerView class]]) {
+        return NO;
+    }
+    return YES;
 }
 
 - (void)pan:(UIPanGestureRecognizer *)g {
@@ -946,6 +1341,7 @@
             
             if (fabs(v.y) > 1000 || fabs(deltaY) > 120) {
                 [self cancelAllImageLoad];
+                [self cleanCells];
                 _isPresented = NO;
                 [[UIApplication sharedApplication] setStatusBarHidden:_fromNavigationBarHidden withAnimation:UIStatusBarAnimationFade];
                 
@@ -989,5 +1385,7 @@
         default:break;
     }
 }
+
+
 
 @end

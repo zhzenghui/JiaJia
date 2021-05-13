@@ -6,6 +6,7 @@
 //
 
 #import "ImageTableViewCell.h"
+//#import "RendererManager.h"
 
 @interface ImageTableViewCell()
 

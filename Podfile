@@ -10,4 +10,7 @@ target 'JiaJia' do
   pod "Weibo_SDK", :git => "https://github.com/sinaweibosdk/weibo_ios_sdk.git"
   pod 'AFNetworking', '~> 4.0'
   pod 'YYKit'
+  pod 'SDWebImage', '~> 5.0'
+  pod 'Masonry'
+
 end
